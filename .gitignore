@@ -1,0 +1,18 @@
+bazel-*
+.gradle/
+target/
+.flattened-pom.xml
+
+# IDE
+.idea
+.ijwb
+*.iml
+
+# Vim.
+*.sw*
+*.vim
+
+# Vscode Settings
+.vscode/settings.json
+
+*.iml
