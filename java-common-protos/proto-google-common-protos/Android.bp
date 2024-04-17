@@ -1,0 +1,13 @@
+java_library_host {
+    name: "proto-google-common-protos",
+    defaults: ["sdk-platform-java-default-visibility"],
+    srcs: [
+        "src/main/**/*.java",
+    ],
+    libs: ["libprotobuf-java-util-full"],
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
