@@ -1,0 +1,8 @@
+java_defaults {
+    name: "sdk-platform-java-default-visibility",
+    visibility: [
+        "//external/sdk-platform-java:__subpackages__",
+        "//external/google-cloud-java:__subpackages__",
+        "//tools/apksig",
+    ],
+}

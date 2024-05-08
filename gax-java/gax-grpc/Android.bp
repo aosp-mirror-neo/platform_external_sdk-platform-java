@@ -1,0 +1,33 @@
+java_library_host {
+    name: "gax-java-grpc",
+    defaults: ["sdk-platform-java-default-visibility"],
+    srcs: ["src/main/java/**/*.java"],
+    exclude_srcs: [
+        "src/main/java/com/google/api/gax/grpc/nativeimage/**/*.java",
+    ],
+    libs: [
+        "auto_value_annotations",
+        "gax-java",
+        "google-api-common",
+        "google-cloud-core",
+        "google-api-java-client-assembly",
+        "google-auth-library-java-credentials",
+        "google-auth-library-java-oauth2_http",
+        "grpc-java-auth",
+        "grpc-java-alts",
+        "grpc-java-api",
+        "grpc-java-context",
+        "grpc-java-protobuf",
+        "grpc-java-stub",
+        "guava",
+        "libprotobuf-java-util-full",
+        "proto-google-common-protos",
+        "threetenbp",
+    ],
+    plugins: ["auto_value_plugin"],
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
