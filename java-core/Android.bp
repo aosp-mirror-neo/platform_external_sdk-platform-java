@@ -1,0 +1,26 @@
+java_library_host {
+    name: "google-cloud-core",
+    defaults: ["sdk-platform-java-default-visibility"],
+    srcs: [
+        "google-cloud-core/src/main/**/*.java",
+    ],
+    libs: [
+        "auto_value_annotations",
+        "gax-java",
+        "google-api-common",
+        "google-api-java-client-assembly",
+        "google-auth-library-java-credentials",
+        "google-auth-library-java-oauth2_http",
+        "guava",
+        "libprotobuf-java-util-full",
+        "proto-google-common-protos",
+        "proto-google-iam-v1",
+        "threetenbp",
+    ],
+    plugins: ["auto_value_plugin"],
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
