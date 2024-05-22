@@ -1,0 +1,22 @@
+java_library_host {
+    name: "google-api-common",
+    defaults: ["sdk-platform-java-default-visibility"],
+    srcs: [
+        "src/main/**/*.java",
+    ],
+    libs: [
+        "libprotobuf-java-util-full",
+        "auto_value_annotations",
+    ],
+    plugins: ["auto_value_plugin"],
+    errorprone: {
+        javacflags: [
+            "-Xep:DoNotCall:WARN",
+        ],
+    },
+    target: {
+        windows: {
+            enabled: true,
+        },
+    },
+}
