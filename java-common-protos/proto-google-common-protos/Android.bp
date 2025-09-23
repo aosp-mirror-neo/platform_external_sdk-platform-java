@@ -2,9 +2,16 @@ java_library_host {
     name: "proto-google-common-protos",
     defaults: ["sdk-platform-java-default-visibility"],
     srcs: [
-        "src/main/**/*.java",
+        "src/main/proto/**/*.proto",
     ],
     libs: ["libprotobuf-java-util-full"],
+    proto: {
+        type: "full",
+        include_dirs: [
+            "external/protobuf/src",
+            "external/sdk-platform-java/java-common-protos/proto-google-common-protos/src/main/proto",
+        ],
+    },
     target: {
         windows: {
             enabled: true,

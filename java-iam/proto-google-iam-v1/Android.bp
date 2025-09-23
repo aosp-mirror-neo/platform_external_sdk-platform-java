@@ -1,11 +1,19 @@
 java_library_host {
     name: "proto-google-iam-v1",
     defaults: ["sdk-platform-java-default-visibility"],
-    srcs: ["src/main/java/**/*.java"],
+    srcs: ["src/main/proto/**/*.proto"],
     libs: [
         "libprotobuf-java-util-full",
         "proto-google-common-protos",
     ],
+    proto: {
+        type: "full",
+        include_dirs: [
+            "external/protobuf/src",
+            "external/sdk-platform-java/java-common-protos/proto-google-common-protos/src/main/proto",
+            "external/sdk-platform-java/java-iam/proto-google-iam-v1/src/main/proto",
+        ],
+    },
     target: {
         windows: {
             enabled: true,
