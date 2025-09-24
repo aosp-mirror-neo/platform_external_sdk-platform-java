@@ -27,11 +27,6 @@ private static final long serialVersionUID = 0L;
     return new RepeatRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.ComplianceOuterClass.internal_static_google_showcase_v1beta1_RepeatRequest_descriptor;
@@ -93,7 +88,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasInfo() {
-    return info_ != null;
+    return ((bitField0_ & 0x00000001) != 0);
   }
   /**
    * <code>.google.showcase.v1beta1.ComplianceData info = 2;</code>
@@ -140,7 +135,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasIntendedBindingUri() {
-    return ((bitField0_ & 0x00000001) != 0);
+    return ((bitField0_ & 0x00000002) != 0);
   }
   /**
    * <pre>
@@ -232,7 +227,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasPInt32() {
-    return ((bitField0_ & 0x00000002) != 0);
+    return ((bitField0_ & 0x00000004) != 0);
   }
   /**
    * <code>optional int32 p_int32 = 7;</code>
@@ -251,7 +246,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasPInt64() {
-    return ((bitField0_ & 0x00000004) != 0);
+    return ((bitField0_ & 0x00000008) != 0);
   }
   /**
    * <code>optional int64 p_int64 = 8;</code>
@@ -270,7 +265,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasPDouble() {
-    return ((bitField0_ & 0x00000008) != 0);
+    return ((bitField0_ & 0x00000010) != 0);
   }
   /**
    * <code>optional double p_double = 9;</code>
@@ -298,7 +293,7 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
     }
-    if (info_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(2, getInfo());
     }
     if (serverVerify_ != false) {
@@ -313,16 +308,16 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToRawLongBits(fDouble_) != 0) {
       output.writeDouble(6, fDouble_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (((bitField0_ & 0x00000004) != 0)) {
       output.writeInt32(7, pInt32_);
     }
-    if (((bitField0_ & 0x00000004) != 0)) {
+    if (((bitField0_ & 0x00000008) != 0)) {
       output.writeInt64(8, pInt64_);
     }
-    if (((bitField0_ & 0x00000008) != 0)) {
+    if (((bitField0_ & 0x00000010) != 0)) {
       output.writeDouble(9, pDouble_);
     }
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (((bitField0_ & 0x00000002) != 0)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 10, intendedBindingUri_);
     }
     getUnknownFields().writeTo(output);
@@ -337,7 +332,7 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
     }
-    if (info_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getInfo());
     }
@@ -357,19 +352,19 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(6, fDouble_);
     }
-    if (((bitField0_ & 0x00000002) != 0)) {
+    if (((bitField0_ & 0x00000004) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(7, pInt32_);
     }
-    if (((bitField0_ & 0x00000004) != 0)) {
+    if (((bitField0_ & 0x00000008) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(8, pInt64_);
     }
-    if (((bitField0_ & 0x00000008) != 0)) {
+    if (((bitField0_ & 0x00000010) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(9, pDouble_);
     }
-    if (((bitField0_ & 0x00000001) != 0)) {
+    if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, intendedBindingUri_);
     }
     size += getUnknownFields().getSerializedSize();
@@ -519,11 +514,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.RepeatRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.RepeatRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -587,13 +584,19 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.google.showcase.v1beta1.RepeatRequest.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getInfoFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -649,18 +652,19 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.name_ = name_;
       }
+      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.info_ = infoBuilder_ == null
             ? info_
             : infoBuilder_.build();
+        to_bitField0_ |= 0x00000001;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
         result.serverVerify_ = serverVerify_;
       }
-      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000008) != 0)) {
         result.intendedBindingUri_ = intendedBindingUri_;
-        to_bitField0_ |= 0x00000001;
+        to_bitField0_ |= 0x00000002;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
         result.fInt32_ = fInt32_;
@@ -673,15 +677,15 @@ private static final long serialVersionUID = 0L;
       }
       if (((from_bitField0_ & 0x00000080) != 0)) {
         result.pInt32_ = pInt32_;
-        to_bitField0_ |= 0x00000002;
+        to_bitField0_ |= 0x00000004;
       }
       if (((from_bitField0_ & 0x00000100) != 0)) {
         result.pInt64_ = pInt64_;
-        to_bitField0_ |= 0x00000004;
+        to_bitField0_ |= 0x00000008;
       }
       if (((from_bitField0_ & 0x00000200) != 0)) {
         result.pDouble_ = pDouble_;
-        to_bitField0_ |= 0x00000008;
+        to_bitField0_ |= 0x00000010;
       }
       result.bitField0_ |= to_bitField0_;
     }
@@ -997,8 +1001,10 @@ private static final long serialVersionUID = 0L;
       } else {
         infoBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000002;
-      onChanged();
+      if (info_ != null) {
+        bitField0_ |= 0x00000002;
+        onChanged();
+      }
       return this;
     }
     /**
@@ -1075,7 +1081,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setServerVerify(boolean value) {
-      
+
       serverVerify_ = value;
       bitField0_ |= 0x00000004;
       onChanged();
@@ -1225,7 +1231,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setFInt32(int value) {
-      
+
       fInt32_ = value;
       bitField0_ |= 0x00000010;
       onChanged();
@@ -1262,7 +1268,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setFInt64(long value) {
-      
+
       fInt64_ = value;
       bitField0_ |= 0x00000020;
       onChanged();
@@ -1294,7 +1300,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setFDouble(double value) {
-      
+
       fDouble_ = value;
       bitField0_ |= 0x00000040;
       onChanged();
@@ -1334,7 +1340,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPInt32(int value) {
-      
+
       pInt32_ = value;
       bitField0_ |= 0x00000080;
       onChanged();
@@ -1374,7 +1380,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPInt64(long value) {
-      
+
       pInt64_ = value;
       bitField0_ |= 0x00000100;
       onChanged();
@@ -1414,7 +1420,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder setPDouble(double value) {
-      
+
       pDouble_ = value;
       bitField0_ |= 0x00000200;
       onChanged();

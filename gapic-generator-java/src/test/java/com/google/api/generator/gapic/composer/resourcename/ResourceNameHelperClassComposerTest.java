@@ -16,16 +16,17 @@ package com.google.api.generator.gapic.composer.resourcename;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.google.api.generator.engine.writer.JavaWriterVisitor;
-import com.google.api.generator.gapic.composer.common.TestProtoLoader;
 import com.google.api.generator.gapic.model.GapicClass;
 import com.google.api.generator.gapic.model.GapicContext;
 import com.google.api.generator.gapic.model.Message;
 import com.google.api.generator.gapic.model.ResourceName;
 import com.google.api.generator.gapic.protoparser.Parser;
 import com.google.api.generator.test.framework.Assert;
-import com.google.api.generator.test.framework.Utils;
+import com.google.api.generator.test.framework.GoldenFileWriter;
+import com.google.api.generator.test.protoloader.TestProtoLoader;
 import com.google.logging.v2.LogEntryProto;
 import com.google.logging.v2.LoggingConfigProto;
 import com.google.logging.v2.LoggingMetricsProto;
@@ -34,6 +35,7 @@ import com.google.protobuf.Descriptors.FileDescriptor;
 import com.google.protobuf.Descriptors.ServiceDescriptor;
 import com.google.showcase.v1beta1.EchoOuterClass;
 import com.google.showcase.v1beta1.TestingOuterClass;
+import com.google.test.collisions.CollisionsOuterClass;
 import google.cloud.CommonResources;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,6 +52,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ResourceNameHelperClassComposerTest {
+
+  private final String COLLIDING_RESOURCE_NAME_KEY = "config.googleapis.com/Resource";
+
   private ServiceDescriptor echoService;
   private FileDescriptor echoFileDescriptor;
 
@@ -107,8 +112,9 @@ public class ResourceNameHelperClassComposerTest {
 
     JavaWriterVisitor visitor = new JavaWriterVisitor();
     clazz.classDefinition().accept(visitor);
-    Utils.saveCodegenToFile(this.getClass(), "FoobarName.golden", visitor.write());
-    Path goldenFilePath = Paths.get(Utils.getGoldenDir(this.getClass()), "FoobarName.golden");
+    GoldenFileWriter.saveCodegenToFile(this.getClass(), "FoobarName.golden", visitor.write());
+    Path goldenFilePath =
+        Paths.get(GoldenFileWriter.getGoldenDir(this.getClass()), "FoobarName.golden");
     Assert.assertCodeEquals(goldenFilePath, visitor.write());
   }
 
@@ -151,9 +157,11 @@ public class ResourceNameHelperClassComposerTest {
 
     JavaWriterVisitor visitor = new JavaWriterVisitor();
     clazz.classDefinition().accept(visitor);
-    Utils.saveCodegenToFile(this.getClass(), "BillingAccountLocationName.golden", visitor.write());
+    GoldenFileWriter.saveCodegenToFile(
+        this.getClass(), "BillingAccountLocationName.golden", visitor.write());
     Path goldenFilePath =
-        Paths.get(Utils.getGoldenDir(this.getClass()), "BillingAccountLocationName.golden");
+        Paths.get(
+            GoldenFileWriter.getGoldenDir(this.getClass()), "BillingAccountLocationName.golden");
     Assert.assertCodeEquals(goldenFilePath, visitor.write());
   }
 
@@ -178,8 +186,9 @@ public class ResourceNameHelperClassComposerTest {
 
     JavaWriterVisitor visitor = new JavaWriterVisitor();
     clazz.classDefinition().accept(visitor);
-    Utils.saveCodegenToFile(this.getClass(), "SessionName.golden", visitor.write());
-    Path goldenFilePath = Paths.get(Utils.getGoldenDir(this.getClass()), "SessionName.golden");
+    GoldenFileWriter.saveCodegenToFile(this.getClass(), "SessionName.golden", visitor.write());
+    Path goldenFilePath =
+        Paths.get(GoldenFileWriter.getGoldenDir(this.getClass()), "SessionName.golden");
     Assert.assertCodeEquals(goldenFilePath, visitor.write());
   }
 
@@ -204,8 +213,9 @@ public class ResourceNameHelperClassComposerTest {
 
     JavaWriterVisitor visitor = new JavaWriterVisitor();
     clazz.classDefinition().accept(visitor);
-    Utils.saveCodegenToFile(this.getClass(), "TestName.golden", visitor.write());
-    Path goldenFilePath = Paths.get(Utils.getGoldenDir(this.getClass()), "TestName.golden");
+    GoldenFileWriter.saveCodegenToFile(this.getClass(), "TestName.golden", visitor.write());
+    Path goldenFilePath =
+        Paths.get(GoldenFileWriter.getGoldenDir(this.getClass()), "TestName.golden");
     Assert.assertCodeEquals(goldenFilePath, visitor.write());
   }
 
@@ -228,8 +238,34 @@ public class ResourceNameHelperClassComposerTest {
         ResourceNameHelperClassComposer.instance().generate(agentResname, irrelevantContext);
     JavaWriterVisitor visitor = new JavaWriterVisitor();
     clazz.classDefinition().accept(visitor);
-    Utils.saveCodegenToFile(this.getClass(), "AgentName.golden", visitor.write());
-    Path goldenFilePath = Paths.get(Utils.getGoldenDir(this.getClass()), "AgentName.golden");
+    GoldenFileWriter.saveCodegenToFile(this.getClass(), "AgentName.golden", visitor.write());
+    Path goldenFilePath =
+        Paths.get(GoldenFileWriter.getGoldenDir(this.getClass()), "AgentName.golden");
     Assert.assertCodeEquals(goldenFilePath, visitor.write());
+  }
+
+  @Test
+  public void generateResourceNameClass_resourceNameCollisionIsAvoided() {
+    ResourceName collidingResourceName =
+        Parser.parseResourceNames(CollisionsOuterClass.getDescriptor())
+            .get(COLLIDING_RESOURCE_NAME_KEY);
+
+    GapicContext irrelevantContext = TestProtoLoader.instance().parseShowcaseEcho();
+    GapicClass clazz =
+        ResourceNameHelperClassComposer.instance()
+            .generate(collidingResourceName, irrelevantContext);
+    JavaWriterVisitor visitor = new JavaWriterVisitor();
+    clazz.classDefinition().accept(visitor);
+    GoldenFileWriter.saveCodegenToFile(
+        this.getClass(), "CollisionResourceName.golden", visitor.write());
+    Path goldenFilePath =
+        Paths.get(GoldenFileWriter.getGoldenDir(this.getClass()), "CollisionResourceName.golden");
+    Assert.assertCodeEquals(goldenFilePath, visitor.write());
+
+    assertEquals(1, clazz.classDefinition().implementsTypes().size());
+    assertTrue(clazz.classDefinition().implementsTypes().get(0).reference().useFullName());
+    assertEquals(
+        clazz.classDefinition().classIdentifier().name(),
+        clazz.classDefinition().implementsTypes().get(0).reference().name());
   }
 }

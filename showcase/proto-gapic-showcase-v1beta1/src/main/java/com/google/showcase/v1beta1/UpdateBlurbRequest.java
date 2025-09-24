@@ -30,11 +30,6 @@ private static final long serialVersionUID = 0L;
     return new UpdateBlurbRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.MessagingOuterClass.internal_static_google_showcase_v1beta1_UpdateBlurbRequest_descriptor;
@@ -48,6 +43,7 @@ private static final long serialVersionUID = 0L;
             com.google.showcase.v1beta1.UpdateBlurbRequest.class, com.google.showcase.v1beta1.UpdateBlurbRequest.Builder.class);
   }
 
+  private int bitField0_;
   public static final int BLURB_FIELD_NUMBER = 1;
   private com.google.showcase.v1beta1.Blurb blurb_;
   /**
@@ -60,7 +56,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasBlurb() {
-    return blurb_ != null;
+    return ((bitField0_ & 0x00000001) != 0);
   }
   /**
    * <pre>
@@ -99,7 +95,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasUpdateMask() {
-    return updateMask_ != null;
+    return ((bitField0_ & 0x00000002) != 0);
   }
   /**
    * <pre>
@@ -141,10 +137,10 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (blurb_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(1, getBlurb());
     }
-    if (updateMask_ != null) {
+    if (((bitField0_ & 0x00000002) != 0)) {
       output.writeMessage(2, getUpdateMask());
     }
     getUnknownFields().writeTo(output);
@@ -156,11 +152,11 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (blurb_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getBlurb());
     }
-    if (updateMask_ != null) {
+    if (((bitField0_ & 0x00000002) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getUpdateMask());
     }
@@ -257,11 +253,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.UpdateBlurbRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.UpdateBlurbRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -330,13 +328,20 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.google.showcase.v1beta1.UpdateBlurbRequest.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getBlurbFieldBuilder();
+        getUpdateMaskFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -385,16 +390,20 @@ private static final long serialVersionUID = 0L;
 
     private void buildPartial0(com.google.showcase.v1beta1.UpdateBlurbRequest result) {
       int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.blurb_ = blurbBuilder_ == null
             ? blurb_
             : blurbBuilder_.build();
+        to_bitField0_ |= 0x00000001;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.updateMask_ = updateMaskBuilder_ == null
             ? updateMask_
             : updateMaskBuilder_.build();
+        to_bitField0_ |= 0x00000002;
       }
+      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -590,8 +599,10 @@ private static final long serialVersionUID = 0L;
       } else {
         blurbBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+      if (blurb_ != null) {
+        bitField0_ |= 0x00000001;
+        onChanged();
+      }
       return this;
     }
     /**
@@ -750,8 +761,10 @@ private static final long serialVersionUID = 0L;
       } else {
         updateMaskBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000002;
-      onChanged();
+      if (updateMask_ != null) {
+        bitField0_ |= 0x00000002;
+        onChanged();
+      }
       return this;
     }
     /**

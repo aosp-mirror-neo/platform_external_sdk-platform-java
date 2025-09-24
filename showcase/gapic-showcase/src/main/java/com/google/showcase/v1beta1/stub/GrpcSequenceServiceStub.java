@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,19 +24,31 @@ import com.google.api.gax.core.BackgroundResourceAggregation;
 import com.google.api.gax.grpc.GrpcCallSettings;
 import com.google.api.gax.grpc.GrpcStubCallableFactory;
 import com.google.api.gax.rpc.ClientContext;
+import com.google.api.gax.rpc.RequestParamsBuilder;
+import com.google.api.gax.rpc.ServerStreamingCallable;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.cloud.location.GetLocationRequest;
 import com.google.cloud.location.ListLocationsRequest;
 import com.google.cloud.location.ListLocationsResponse;
 import com.google.cloud.location.Location;
-import com.google.common.collect.ImmutableMap;
+import com.google.iam.v1.GetIamPolicyRequest;
+import com.google.iam.v1.Policy;
+import com.google.iam.v1.SetIamPolicyRequest;
+import com.google.iam.v1.TestIamPermissionsRequest;
+import com.google.iam.v1.TestIamPermissionsResponse;
 import com.google.longrunning.stub.GrpcOperationsStub;
 import com.google.protobuf.Empty;
 import com.google.showcase.v1beta1.AttemptSequenceRequest;
+import com.google.showcase.v1beta1.AttemptStreamingSequenceRequest;
+import com.google.showcase.v1beta1.AttemptStreamingSequenceResponse;
 import com.google.showcase.v1beta1.CreateSequenceRequest;
+import com.google.showcase.v1beta1.CreateStreamingSequenceRequest;
 import com.google.showcase.v1beta1.GetSequenceReportRequest;
+import com.google.showcase.v1beta1.GetStreamingSequenceReportRequest;
 import com.google.showcase.v1beta1.Sequence;
 import com.google.showcase.v1beta1.SequenceReport;
+import com.google.showcase.v1beta1.StreamingSequence;
+import com.google.showcase.v1beta1.StreamingSequenceReport;
 import io.grpc.MethodDescriptor;
 import io.grpc.protobuf.ProtoUtils;
 import java.io.IOException;
@@ -63,6 +75,16 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
               .setResponseMarshaller(ProtoUtils.marshaller(Sequence.getDefaultInstance()))
               .build();
 
+  private static final MethodDescriptor<CreateStreamingSequenceRequest, StreamingSequence>
+      createStreamingSequenceMethodDescriptor =
+          MethodDescriptor.<CreateStreamingSequenceRequest, StreamingSequence>newBuilder()
+              .setType(MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName("google.showcase.v1beta1.SequenceService/CreateStreamingSequence")
+              .setRequestMarshaller(
+                  ProtoUtils.marshaller(CreateStreamingSequenceRequest.getDefaultInstance()))
+              .setResponseMarshaller(ProtoUtils.marshaller(StreamingSequence.getDefaultInstance()))
+              .build();
+
   private static final MethodDescriptor<GetSequenceReportRequest, SequenceReport>
       getSequenceReportMethodDescriptor =
           MethodDescriptor.<GetSequenceReportRequest, SequenceReport>newBuilder()
@@ -73,6 +95,18 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
               .setResponseMarshaller(ProtoUtils.marshaller(SequenceReport.getDefaultInstance()))
               .build();
 
+  private static final MethodDescriptor<GetStreamingSequenceReportRequest, StreamingSequenceReport>
+      getStreamingSequenceReportMethodDescriptor =
+          MethodDescriptor.<GetStreamingSequenceReportRequest, StreamingSequenceReport>newBuilder()
+              .setType(MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(
+                  "google.showcase.v1beta1.SequenceService/GetStreamingSequenceReport")
+              .setRequestMarshaller(
+                  ProtoUtils.marshaller(GetStreamingSequenceReportRequest.getDefaultInstance()))
+              .setResponseMarshaller(
+                  ProtoUtils.marshaller(StreamingSequenceReport.getDefaultInstance()))
+              .build();
+
   private static final MethodDescriptor<AttemptSequenceRequest, Empty>
       attemptSequenceMethodDescriptor =
           MethodDescriptor.<AttemptSequenceRequest, Empty>newBuilder()
@@ -81,6 +115,19 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
               .setRequestMarshaller(
                   ProtoUtils.marshaller(AttemptSequenceRequest.getDefaultInstance()))
               .setResponseMarshaller(ProtoUtils.marshaller(Empty.getDefaultInstance()))
+              .build();
+
+  private static final MethodDescriptor<
+          AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>
+      attemptStreamingSequenceMethodDescriptor =
+          MethodDescriptor
+              .<AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>newBuilder()
+              .setType(MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName("google.showcase.v1beta1.SequenceService/AttemptStreamingSequence")
+              .setRequestMarshaller(
+                  ProtoUtils.marshaller(AttemptStreamingSequenceRequest.getDefaultInstance()))
+              .setResponseMarshaller(
+                  ProtoUtils.marshaller(AttemptStreamingSequenceResponse.getDefaultInstance()))
               .build();
 
   private static final MethodDescriptor<ListLocationsRequest, ListLocationsResponse>
@@ -102,13 +149,51 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
           .setResponseMarshaller(ProtoUtils.marshaller(Location.getDefaultInstance()))
           .build();
 
+  private static final MethodDescriptor<SetIamPolicyRequest, Policy> setIamPolicyMethodDescriptor =
+      MethodDescriptor.<SetIamPolicyRequest, Policy>newBuilder()
+          .setType(MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName("google.iam.v1.IAMPolicy/SetIamPolicy")
+          .setRequestMarshaller(ProtoUtils.marshaller(SetIamPolicyRequest.getDefaultInstance()))
+          .setResponseMarshaller(ProtoUtils.marshaller(Policy.getDefaultInstance()))
+          .build();
+
+  private static final MethodDescriptor<GetIamPolicyRequest, Policy> getIamPolicyMethodDescriptor =
+      MethodDescriptor.<GetIamPolicyRequest, Policy>newBuilder()
+          .setType(MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName("google.iam.v1.IAMPolicy/GetIamPolicy")
+          .setRequestMarshaller(ProtoUtils.marshaller(GetIamPolicyRequest.getDefaultInstance()))
+          .setResponseMarshaller(ProtoUtils.marshaller(Policy.getDefaultInstance()))
+          .build();
+
+  private static final MethodDescriptor<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsMethodDescriptor =
+          MethodDescriptor.<TestIamPermissionsRequest, TestIamPermissionsResponse>newBuilder()
+              .setType(MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName("google.iam.v1.IAMPolicy/TestIamPermissions")
+              .setRequestMarshaller(
+                  ProtoUtils.marshaller(TestIamPermissionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(
+                  ProtoUtils.marshaller(TestIamPermissionsResponse.getDefaultInstance()))
+              .build();
+
   private final UnaryCallable<CreateSequenceRequest, Sequence> createSequenceCallable;
+  private final UnaryCallable<CreateStreamingSequenceRequest, StreamingSequence>
+      createStreamingSequenceCallable;
   private final UnaryCallable<GetSequenceReportRequest, SequenceReport> getSequenceReportCallable;
+  private final UnaryCallable<GetStreamingSequenceReportRequest, StreamingSequenceReport>
+      getStreamingSequenceReportCallable;
   private final UnaryCallable<AttemptSequenceRequest, Empty> attemptSequenceCallable;
+  private final ServerStreamingCallable<
+          AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>
+      attemptStreamingSequenceCallable;
   private final UnaryCallable<ListLocationsRequest, ListLocationsResponse> listLocationsCallable;
   private final UnaryCallable<ListLocationsRequest, ListLocationsPagedResponse>
       listLocationsPagedCallable;
   private final UnaryCallable<GetLocationRequest, Location> getLocationCallable;
+  private final UnaryCallable<SetIamPolicyRequest, Policy> setIamPolicyCallable;
+  private final UnaryCallable<GetIamPolicyRequest, Policy> getIamPolicyCallable;
+  private final UnaryCallable<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsCallable;
 
   private final BackgroundResource backgroundResources;
   private final GrpcOperationsStub operationsStub;
@@ -158,34 +243,63 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
         GrpcCallSettings.<CreateSequenceRequest, Sequence>newBuilder()
             .setMethodDescriptor(createSequenceMethodDescriptor)
             .build();
+    GrpcCallSettings<CreateStreamingSequenceRequest, StreamingSequence>
+        createStreamingSequenceTransportSettings =
+            GrpcCallSettings.<CreateStreamingSequenceRequest, StreamingSequence>newBuilder()
+                .setMethodDescriptor(createStreamingSequenceMethodDescriptor)
+                .build();
     GrpcCallSettings<GetSequenceReportRequest, SequenceReport> getSequenceReportTransportSettings =
         GrpcCallSettings.<GetSequenceReportRequest, SequenceReport>newBuilder()
             .setMethodDescriptor(getSequenceReportMethodDescriptor)
             .setParamsExtractor(
                 request -> {
-                  ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
-                  params.put("name", String.valueOf(request.getName()));
-                  return params.build();
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("name", String.valueOf(request.getName()));
+                  return builder.build();
                 })
             .build();
+    GrpcCallSettings<GetStreamingSequenceReportRequest, StreamingSequenceReport>
+        getStreamingSequenceReportTransportSettings =
+            GrpcCallSettings
+                .<GetStreamingSequenceReportRequest, StreamingSequenceReport>newBuilder()
+                .setMethodDescriptor(getStreamingSequenceReportMethodDescriptor)
+                .setParamsExtractor(
+                    request -> {
+                      RequestParamsBuilder builder = RequestParamsBuilder.create();
+                      builder.add("name", String.valueOf(request.getName()));
+                      return builder.build();
+                    })
+                .build();
     GrpcCallSettings<AttemptSequenceRequest, Empty> attemptSequenceTransportSettings =
         GrpcCallSettings.<AttemptSequenceRequest, Empty>newBuilder()
             .setMethodDescriptor(attemptSequenceMethodDescriptor)
             .setParamsExtractor(
                 request -> {
-                  ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
-                  params.put("name", String.valueOf(request.getName()));
-                  return params.build();
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("name", String.valueOf(request.getName()));
+                  return builder.build();
                 })
             .build();
+    GrpcCallSettings<AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>
+        attemptStreamingSequenceTransportSettings =
+            GrpcCallSettings
+                .<AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>newBuilder()
+                .setMethodDescriptor(attemptStreamingSequenceMethodDescriptor)
+                .setParamsExtractor(
+                    request -> {
+                      RequestParamsBuilder builder = RequestParamsBuilder.create();
+                      builder.add("name", String.valueOf(request.getName()));
+                      return builder.build();
+                    })
+                .build();
     GrpcCallSettings<ListLocationsRequest, ListLocationsResponse> listLocationsTransportSettings =
         GrpcCallSettings.<ListLocationsRequest, ListLocationsResponse>newBuilder()
             .setMethodDescriptor(listLocationsMethodDescriptor)
             .setParamsExtractor(
                 request -> {
-                  ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
-                  params.put("name", String.valueOf(request.getName()));
-                  return params.build();
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("name", String.valueOf(request.getName()));
+                  return builder.build();
                 })
             .build();
     GrpcCallSettings<GetLocationRequest, Location> getLocationTransportSettings =
@@ -193,23 +307,69 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
             .setMethodDescriptor(getLocationMethodDescriptor)
             .setParamsExtractor(
                 request -> {
-                  ImmutableMap.Builder<String, String> params = ImmutableMap.builder();
-                  params.put("name", String.valueOf(request.getName()));
-                  return params.build();
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("name", String.valueOf(request.getName()));
+                  return builder.build();
                 })
             .build();
+    GrpcCallSettings<SetIamPolicyRequest, Policy> setIamPolicyTransportSettings =
+        GrpcCallSettings.<SetIamPolicyRequest, Policy>newBuilder()
+            .setMethodDescriptor(setIamPolicyMethodDescriptor)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("resource", String.valueOf(request.getResource()));
+                  return builder.build();
+                })
+            .build();
+    GrpcCallSettings<GetIamPolicyRequest, Policy> getIamPolicyTransportSettings =
+        GrpcCallSettings.<GetIamPolicyRequest, Policy>newBuilder()
+            .setMethodDescriptor(getIamPolicyMethodDescriptor)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("resource", String.valueOf(request.getResource()));
+                  return builder.build();
+                })
+            .build();
+    GrpcCallSettings<TestIamPermissionsRequest, TestIamPermissionsResponse>
+        testIamPermissionsTransportSettings =
+            GrpcCallSettings.<TestIamPermissionsRequest, TestIamPermissionsResponse>newBuilder()
+                .setMethodDescriptor(testIamPermissionsMethodDescriptor)
+                .setParamsExtractor(
+                    request -> {
+                      RequestParamsBuilder builder = RequestParamsBuilder.create();
+                      builder.add("resource", String.valueOf(request.getResource()));
+                      return builder.build();
+                    })
+                .build();
 
     this.createSequenceCallable =
         callableFactory.createUnaryCallable(
             createSequenceTransportSettings, settings.createSequenceSettings(), clientContext);
+    this.createStreamingSequenceCallable =
+        callableFactory.createUnaryCallable(
+            createStreamingSequenceTransportSettings,
+            settings.createStreamingSequenceSettings(),
+            clientContext);
     this.getSequenceReportCallable =
         callableFactory.createUnaryCallable(
             getSequenceReportTransportSettings,
             settings.getSequenceReportSettings(),
             clientContext);
+    this.getStreamingSequenceReportCallable =
+        callableFactory.createUnaryCallable(
+            getStreamingSequenceReportTransportSettings,
+            settings.getStreamingSequenceReportSettings(),
+            clientContext);
     this.attemptSequenceCallable =
         callableFactory.createUnaryCallable(
             attemptSequenceTransportSettings, settings.attemptSequenceSettings(), clientContext);
+    this.attemptStreamingSequenceCallable =
+        callableFactory.createServerStreamingCallable(
+            attemptStreamingSequenceTransportSettings,
+            settings.attemptStreamingSequenceSettings(),
+            clientContext);
     this.listLocationsCallable =
         callableFactory.createUnaryCallable(
             listLocationsTransportSettings, settings.listLocationsSettings(), clientContext);
@@ -219,6 +379,17 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
     this.getLocationCallable =
         callableFactory.createUnaryCallable(
             getLocationTransportSettings, settings.getLocationSettings(), clientContext);
+    this.setIamPolicyCallable =
+        callableFactory.createUnaryCallable(
+            setIamPolicyTransportSettings, settings.setIamPolicySettings(), clientContext);
+    this.getIamPolicyCallable =
+        callableFactory.createUnaryCallable(
+            getIamPolicyTransportSettings, settings.getIamPolicySettings(), clientContext);
+    this.testIamPermissionsCallable =
+        callableFactory.createUnaryCallable(
+            testIamPermissionsTransportSettings,
+            settings.testIamPermissionsSettings(),
+            clientContext);
 
     this.backgroundResources =
         new BackgroundResourceAggregation(clientContext.getBackgroundResources());
@@ -234,13 +405,31 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
   }
 
   @Override
+  public UnaryCallable<CreateStreamingSequenceRequest, StreamingSequence>
+      createStreamingSequenceCallable() {
+    return createStreamingSequenceCallable;
+  }
+
+  @Override
   public UnaryCallable<GetSequenceReportRequest, SequenceReport> getSequenceReportCallable() {
     return getSequenceReportCallable;
   }
 
   @Override
+  public UnaryCallable<GetStreamingSequenceReportRequest, StreamingSequenceReport>
+      getStreamingSequenceReportCallable() {
+    return getStreamingSequenceReportCallable;
+  }
+
+  @Override
   public UnaryCallable<AttemptSequenceRequest, Empty> attemptSequenceCallable() {
     return attemptSequenceCallable;
+  }
+
+  @Override
+  public ServerStreamingCallable<AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>
+      attemptStreamingSequenceCallable() {
+    return attemptStreamingSequenceCallable;
   }
 
   @Override
@@ -257,6 +446,22 @@ public class GrpcSequenceServiceStub extends SequenceServiceStub {
   @Override
   public UnaryCallable<GetLocationRequest, Location> getLocationCallable() {
     return getLocationCallable;
+  }
+
+  @Override
+  public UnaryCallable<SetIamPolicyRequest, Policy> setIamPolicyCallable() {
+    return setIamPolicyCallable;
+  }
+
+  @Override
+  public UnaryCallable<GetIamPolicyRequest, Policy> getIamPolicyCallable() {
+    return getIamPolicyCallable;
+  }
+
+  @Override
+  public UnaryCallable<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsCallable() {
+    return testIamPermissionsCallable;
   }
 
   @Override

@@ -30,11 +30,6 @@ private static final long serialVersionUID = 0L;
     return new ExpandRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.EchoOuterClass.internal_static_google_showcase_v1beta1_ExpandRequest_descriptor;
@@ -48,6 +43,7 @@ private static final long serialVersionUID = 0L;
             com.google.showcase.v1beta1.ExpandRequest.class, com.google.showcase.v1beta1.ExpandRequest.Builder.class);
   }
 
+  private int bitField0_;
   public static final int CONTENT_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
   private volatile java.lang.Object content_ = "";
@@ -107,7 +103,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasError() {
-    return error_ != null;
+    return ((bitField0_ & 0x00000001) != 0);
   }
   /**
    * <pre>
@@ -133,6 +129,44 @@ private static final long serialVersionUID = 0L;
     return error_ == null ? com.google.rpc.Status.getDefaultInstance() : error_;
   }
 
+  public static final int STREAM_WAIT_TIME_FIELD_NUMBER = 3;
+  private com.google.protobuf.Duration streamWaitTime_;
+  /**
+   * <pre>
+   *The wait time between each server streaming messages
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+   * @return Whether the streamWaitTime field is set.
+   */
+  @java.lang.Override
+  public boolean hasStreamWaitTime() {
+    return ((bitField0_ & 0x00000002) != 0);
+  }
+  /**
+   * <pre>
+   *The wait time between each server streaming messages
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+   * @return The streamWaitTime.
+   */
+  @java.lang.Override
+  public com.google.protobuf.Duration getStreamWaitTime() {
+    return streamWaitTime_ == null ? com.google.protobuf.Duration.getDefaultInstance() : streamWaitTime_;
+  }
+  /**
+   * <pre>
+   *The wait time between each server streaming messages
+   * </pre>
+   *
+   * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+   */
+  @java.lang.Override
+  public com.google.protobuf.DurationOrBuilder getStreamWaitTimeOrBuilder() {
+    return streamWaitTime_ == null ? com.google.protobuf.Duration.getDefaultInstance() : streamWaitTime_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -150,8 +184,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(content_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, content_);
     }
-    if (error_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(2, getError());
+    }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      output.writeMessage(3, getStreamWaitTime());
     }
     getUnknownFields().writeTo(output);
   }
@@ -165,9 +202,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(content_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, content_);
     }
-    if (error_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getError());
+    }
+    if (((bitField0_ & 0x00000002) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(3, getStreamWaitTime());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -191,6 +232,11 @@ private static final long serialVersionUID = 0L;
       if (!getError()
           .equals(other.getError())) return false;
     }
+    if (hasStreamWaitTime() != other.hasStreamWaitTime()) return false;
+    if (hasStreamWaitTime()) {
+      if (!getStreamWaitTime()
+          .equals(other.getStreamWaitTime())) return false;
+    }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -207,6 +253,10 @@ private static final long serialVersionUID = 0L;
     if (hasError()) {
       hash = (37 * hash) + ERROR_FIELD_NUMBER;
       hash = (53 * hash) + getError().hashCode();
+    }
+    if (hasStreamWaitTime()) {
+      hash = (37 * hash) + STREAM_WAIT_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getStreamWaitTime().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -257,11 +307,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.ExpandRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.ExpandRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -329,13 +381,20 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.google.showcase.v1beta1.ExpandRequest.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getErrorFieldBuilder();
+        getStreamWaitTimeFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -346,6 +405,11 @@ private static final long serialVersionUID = 0L;
       if (errorBuilder_ != null) {
         errorBuilder_.dispose();
         errorBuilder_ = null;
+      }
+      streamWaitTime_ = null;
+      if (streamWaitTimeBuilder_ != null) {
+        streamWaitTimeBuilder_.dispose();
+        streamWaitTimeBuilder_ = null;
       }
       return this;
     }
@@ -383,11 +447,20 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.content_ = content_;
       }
+      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.error_ = errorBuilder_ == null
             ? error_
             : errorBuilder_.build();
+        to_bitField0_ |= 0x00000001;
       }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.streamWaitTime_ = streamWaitTimeBuilder_ == null
+            ? streamWaitTime_
+            : streamWaitTimeBuilder_.build();
+        to_bitField0_ |= 0x00000002;
+      }
+      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -442,6 +515,9 @@ private static final long serialVersionUID = 0L;
       if (other.hasError()) {
         mergeError(other.getError());
       }
+      if (other.hasStreamWaitTime()) {
+        mergeStreamWaitTime(other.getStreamWaitTime());
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -480,6 +556,13 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000002;
               break;
             } // case 18
+            case 26: {
+              input.readMessage(
+                  getStreamWaitTimeFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 26
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -675,8 +758,10 @@ private static final long serialVersionUID = 0L;
       } else {
         errorBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000002;
-      onChanged();
+      if (error_ != null) {
+        bitField0_ |= 0x00000002;
+        onChanged();
+      }
       return this;
     }
     /**
@@ -742,6 +827,163 @@ private static final long serialVersionUID = 0L;
         error_ = null;
       }
       return errorBuilder_;
+    }
+
+    private com.google.protobuf.Duration streamWaitTime_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> streamWaitTimeBuilder_;
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     * @return Whether the streamWaitTime field is set.
+     */
+    public boolean hasStreamWaitTime() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     * @return The streamWaitTime.
+     */
+    public com.google.protobuf.Duration getStreamWaitTime() {
+      if (streamWaitTimeBuilder_ == null) {
+        return streamWaitTime_ == null ? com.google.protobuf.Duration.getDefaultInstance() : streamWaitTime_;
+      } else {
+        return streamWaitTimeBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public Builder setStreamWaitTime(com.google.protobuf.Duration value) {
+      if (streamWaitTimeBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        streamWaitTime_ = value;
+      } else {
+        streamWaitTimeBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public Builder setStreamWaitTime(
+        com.google.protobuf.Duration.Builder builderForValue) {
+      if (streamWaitTimeBuilder_ == null) {
+        streamWaitTime_ = builderForValue.build();
+      } else {
+        streamWaitTimeBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public Builder mergeStreamWaitTime(com.google.protobuf.Duration value) {
+      if (streamWaitTimeBuilder_ == null) {
+        if (((bitField0_ & 0x00000004) != 0) &&
+          streamWaitTime_ != null &&
+          streamWaitTime_ != com.google.protobuf.Duration.getDefaultInstance()) {
+          getStreamWaitTimeBuilder().mergeFrom(value);
+        } else {
+          streamWaitTime_ = value;
+        }
+      } else {
+        streamWaitTimeBuilder_.mergeFrom(value);
+      }
+      if (streamWaitTime_ != null) {
+        bitField0_ |= 0x00000004;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public Builder clearStreamWaitTime() {
+      bitField0_ = (bitField0_ & ~0x00000004);
+      streamWaitTime_ = null;
+      if (streamWaitTimeBuilder_ != null) {
+        streamWaitTimeBuilder_.dispose();
+        streamWaitTimeBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public com.google.protobuf.Duration.Builder getStreamWaitTimeBuilder() {
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return getStreamWaitTimeFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    public com.google.protobuf.DurationOrBuilder getStreamWaitTimeOrBuilder() {
+      if (streamWaitTimeBuilder_ != null) {
+        return streamWaitTimeBuilder_.getMessageOrBuilder();
+      } else {
+        return streamWaitTime_ == null ?
+            com.google.protobuf.Duration.getDefaultInstance() : streamWaitTime_;
+      }
+    }
+    /**
+     * <pre>
+     *The wait time between each server streaming messages
+     * </pre>
+     *
+     * <code>.google.protobuf.Duration stream_wait_time = 3;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> 
+        getStreamWaitTimeFieldBuilder() {
+      if (streamWaitTimeBuilder_ == null) {
+        streamWaitTimeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder>(
+                getStreamWaitTime(),
+                getParentForChildren(),
+                isClean());
+        streamWaitTime_ = null;
+      }
+      return streamWaitTimeBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(
