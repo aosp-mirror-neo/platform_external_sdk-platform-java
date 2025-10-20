@@ -51,6 +51,7 @@ import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Queues;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Callable;
@@ -93,7 +94,7 @@ public class BatcherImplTest {
       BatchingSettings.newBuilder()
           .setElementCountThreshold(1000L)
           .setRequestByteThreshold(1000L)
-          .setDelayThreshold(Duration.ofSeconds(1))
+          .setDelayThreshold(Duration.ofSeconds(1000))
           .build();
 
   @After
@@ -376,6 +377,7 @@ public class BatcherImplTest {
             .build();
     underTest = createDefaultBatcherImpl(settings, null);
     Future<Integer> result = underTest.add(2);
+    underTest.add(3);
     assertThat(result.isDone()).isTrue();
     assertThat(result.get()).isEqualTo(4);
   }
@@ -829,7 +831,7 @@ public class BatcherImplTest {
     }
   }
 
-  @Test
+  @Test(timeout = 60000)
   public void testThrottlingBlocking() throws Exception {
     BatchingSettings settings =
         BatchingSettings.newBuilder()
@@ -861,16 +863,28 @@ public class BatcherImplTest {
             flowController,
             callContext)) {
       flowController.reserve(1, 1);
+      List<Thread> batcherAddThreadHolder = Collections.synchronizedList(new ArrayList<>());
       Future future =
           executor.submit(
               new Runnable() {
                 @Override
                 public void run() {
+                  batcherAddThreadHolder.add(Thread.currentThread());
                   batcher.add(1);
                 }
               });
-      // Add a little delay ensuring that the next step starts after batcher.add(1)
-      Thread.sleep(10);
+
+      // Wait until batcher.add blocks (Thread.State.WAITING) and the batcher starts the
+      // stopwatch for total_throttled_time. Without this proper waiting, the
+      // Thread.sleep(throttledTime) below may start before the stopwatch starts,
+      // resulting in a shorter total_throttled_time at the verification of throttledTime
+      // at the end of the test.
+      // https://github.com/googleapis/sdk-platform-java/issues/1193
+      do {
+        Thread.sleep(10);
+      } while (batcherAddThreadHolder.isEmpty()
+          || batcherAddThreadHolder.get(0).getState() != Thread.State.WAITING);
+
       executor.submit(
           () -> {
             try {
@@ -894,11 +908,18 @@ public class BatcherImplTest {
       }
 
       // Mockito recommends using verify() as the ONLY way to interact with Argument
-      // captors - otherwise it may incur in unexpected behaviour
-      Mockito.verify(callContext).withOption(key.capture(), value.capture());
+      // captors - otherwise it may incur in unexpected behaviour.
+      // The callContext.withOption method is called by BatcherImpl.sendOutstanding() method via
+      // BatcherImpl$PushCurrentBatchRunnable in another thread. Technically, there's no guarantee
+      // that the thread calls the withOption method within a certain timeframe. 1000 ms just works
+      // fine to prevent false positives.
+      // https://github.com/googleapis/sdk-platform-java/issues/1193
+      Mockito.verify(callContext, Mockito.timeout(1000)).withOption(key.capture(), value.capture());
 
       // Verify that throttled time is recorded in ApiCallContext
       assertThat(key.getValue()).isSameInstanceAs(Batcher.THROTTLED_TIME_KEY);
+      // Because this test waited for throttledTime before flowController.release() method,
+      // the recorded total_throttled_time should be higher than or equal to that.
       assertThat(value.getValue()).isAtLeast(throttledTime);
     } finally {
       executor.shutdownNow();
@@ -1008,12 +1029,37 @@ public class BatcherImplTest {
     Assert.assertThrows(RuntimeException.class, batcher::close);
   }
 
+  @Test
+  public void testDefaultShouldFlush() {
+    BatchResource resource =
+        DefaultBatchResource.builder().setElementCount(2).setByteCount(2).build();
+
+    assertThat(resource.shouldFlush(2, 2)).isFalse();
+    assertThat(resource.shouldFlush(1, 1)).isTrue();
+  }
+
+  @Test
+  public void testDefaultBatchResourceAdd() {
+    BatchResource resource =
+        DefaultBatchResource.builder().setElementCount(1).setByteCount(1).build();
+
+    BatchResource newResource =
+        resource.add(DefaultBatchResource.builder().setElementCount(1).setByteCount(1).build());
+
+    // Make sure add doesn't modify the old object
+    assertThat(resource.getElementCount()).isEqualTo(1);
+    assertThat(resource.getByteCount()).isEqualTo(1);
+    assertThat(newResource.getElementCount()).isEqualTo(2);
+    assertThat(newResource.getByteCount()).isEqualTo(2);
+  }
+
   private void testElementTriggers(BatchingSettings settings) throws Exception {
     underTest = createDefaultBatcherImpl(settings, null);
     Future<Integer> result = underTest.add(4);
     assertThat(result.isDone()).isFalse();
-    // After this element is added, the batch triggers sendOutstanding().
     Future<Integer> anotherResult = underTest.add(5);
+    // After this element is added, the batch triggers sendOutstanding().
+    underTest.add(6);
     // Both the elements should be resolved now.
     assertThat(result.isDone()).isTrue();
     assertThat(result.get()).isEqualTo(16);

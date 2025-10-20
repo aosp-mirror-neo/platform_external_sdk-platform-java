@@ -26,6 +26,7 @@ package com.google.api;
  * is required in requests, or given as output but ignored as input).
  * This **does not** change the behavior in protocol buffers itself; it only
  * denotes the behavior and may affect how API tooling handles the field.
+ *
  * Note: This enum **may** receive new values in the future.
  * </pre>
  *
@@ -129,6 +130,27 @@ public enum FieldBehavior implements com.google.protobuf.ProtocolMessageEnum {
    * <code>NON_EMPTY_DEFAULT = 7;</code>
    */
   NON_EMPTY_DEFAULT(7),
+  /**
+   *
+   *
+   * <pre>
+   * Denotes that the field in a resource (a message annotated with
+   * google.api.resource) is used in the resource name to uniquely identify the
+   * resource. For AIP-compliant APIs, this should only be applied to the
+   * `name` field on the resource.
+   *
+   * This behavior should not be applied to references to other resources within
+   * the message.
+   *
+   * The identifier field of resources often have different field behavior
+   * depending on the request it is embedded in (e.g. for Create methods name
+   * is optional and unused, while for Update methods it is required). Instead
+   * of method-specific annotations, only `IDENTIFIER` is required.
+   * </pre>
+   *
+   * <code>IDENTIFIER = 8;</code>
+   */
+  IDENTIFIER(8),
   UNRECOGNIZED(-1),
   ;
 
@@ -229,6 +251,27 @@ public enum FieldBehavior implements com.google.protobuf.ProtocolMessageEnum {
    * <code>NON_EMPTY_DEFAULT = 7;</code>
    */
   public static final int NON_EMPTY_DEFAULT_VALUE = 7;
+  /**
+   *
+   *
+   * <pre>
+   * Denotes that the field in a resource (a message annotated with
+   * google.api.resource) is used in the resource name to uniquely identify the
+   * resource. For AIP-compliant APIs, this should only be applied to the
+   * `name` field on the resource.
+   *
+   * This behavior should not be applied to references to other resources within
+   * the message.
+   *
+   * The identifier field of resources often have different field behavior
+   * depending on the request it is embedded in (e.g. for Create methods name
+   * is optional and unused, while for Update methods it is required). Instead
+   * of method-specific annotations, only `IDENTIFIER` is required.
+   * </pre>
+   *
+   * <code>IDENTIFIER = 8;</code>
+   */
+  public static final int IDENTIFIER_VALUE = 8;
 
   public final int getNumber() {
     if (this == UNRECOGNIZED) {
@@ -270,6 +313,8 @@ public enum FieldBehavior implements com.google.protobuf.ProtocolMessageEnum {
         return UNORDERED_LIST;
       case 7:
         return NON_EMPTY_DEFAULT;
+      case 8:
+        return IDENTIFIER;
       default:
         return null;
     }

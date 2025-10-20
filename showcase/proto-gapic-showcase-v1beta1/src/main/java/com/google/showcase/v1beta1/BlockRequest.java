@@ -29,11 +29,6 @@ private static final long serialVersionUID = 0L;
     return new BlockRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.EchoOuterClass.internal_static_google_showcase_v1beta1_BlockRequest_descriptor;
@@ -47,7 +42,9 @@ private static final long serialVersionUID = 0L;
             com.google.showcase.v1beta1.BlockRequest.class, com.google.showcase.v1beta1.BlockRequest.Builder.class);
   }
 
+  private int bitField0_;
   private int responseCase_ = 0;
+  @SuppressWarnings("serial")
   private java.lang.Object response_;
   public enum ResponseCase
       implements com.google.protobuf.Internal.EnumLite,
@@ -100,7 +97,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasResponseDelay() {
-    return responseDelay_ != null;
+    return ((bitField0_ & 0x00000001) != 0);
   }
   /**
    * <pre>
@@ -229,7 +226,7 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (responseDelay_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(1, getResponseDelay());
     }
     if (responseCase_ == 2) {
@@ -247,7 +244,7 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (responseDelay_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getResponseDelay());
     }
@@ -368,11 +365,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.BlockRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.BlockRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -440,13 +439,19 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.google.showcase.v1beta1.BlockRequest.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getResponseDelayFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -499,11 +504,14 @@ private static final long serialVersionUID = 0L;
 
     private void buildPartial0(com.google.showcase.v1beta1.BlockRequest result) {
       int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.responseDelay_ = responseDelayBuilder_ == null
             ? responseDelay_
             : responseDelayBuilder_.build();
+        to_bitField0_ |= 0x00000001;
       }
+      result.bitField0_ |= to_bitField0_;
     }
 
     private void buildPartialOneofs(com.google.showcase.v1beta1.BlockRequest result) {
@@ -744,8 +752,10 @@ private static final long serialVersionUID = 0L;
       } else {
         responseDelayBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+      if (responseDelay_ != null) {
+        bitField0_ |= 0x00000001;
+        onChanged();
+      }
       return this;
     }
     /**

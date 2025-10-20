@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private VerifyTestRequest() {
     name_ = "";
     answer_ = com.google.protobuf.ByteString.EMPTY;
-    answers_ = java.util.Collections.emptyList();
+    answers_ = emptyList(com.google.protobuf.ByteString.class);
   }
 
   @java.lang.Override
@@ -28,11 +28,6 @@ private static final long serialVersionUID = 0L;
     return new VerifyTestRequest();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.TestingOuterClass.internal_static_google_showcase_v1beta1_VerifyTestRequest_descriptor;
@@ -110,7 +105,8 @@ private static final long serialVersionUID = 0L;
 
   public static final int ANSWERS_FIELD_NUMBER = 3;
   @SuppressWarnings("serial")
-  private java.util.List<com.google.protobuf.ByteString> answers_;
+  private com.google.protobuf.Internal.ProtobufList<com.google.protobuf.ByteString> answers_ =
+      emptyList(com.google.protobuf.ByteString.class);
   /**
    * <pre>
    * The answers from the test if multiple are to be checked
@@ -285,11 +281,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.VerifyTestRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.VerifyTestRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -367,7 +365,7 @@ private static final long serialVersionUID = 0L;
       bitField0_ = 0;
       name_ = "";
       answer_ = com.google.protobuf.ByteString.EMPTY;
-      answers_ = java.util.Collections.emptyList();
+      answers_ = emptyList(com.google.protobuf.ByteString.class);
       return this;
     }
 
@@ -394,18 +392,9 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.showcase.v1beta1.VerifyTestRequest buildPartial() {
       com.google.showcase.v1beta1.VerifyTestRequest result = new com.google.showcase.v1beta1.VerifyTestRequest(this);
-      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
-    }
-
-    private void buildPartialRepeatedFields(com.google.showcase.v1beta1.VerifyTestRequest result) {
-      if (((bitField0_ & 0x00000004) != 0)) {
-        answers_ = java.util.Collections.unmodifiableList(answers_);
-        bitField0_ = (bitField0_ & ~0x00000004);
-      }
-      result.answers_ = answers_;
     }
 
     private void buildPartial0(com.google.showcase.v1beta1.VerifyTestRequest result) {
@@ -415,6 +404,10 @@ private static final long serialVersionUID = 0L;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.answer_ = answer_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        answers_.makeImmutable();
+        result.answers_ = answers_;
       }
     }
 
@@ -473,7 +466,8 @@ private static final long serialVersionUID = 0L;
       if (!other.answers_.isEmpty()) {
         if (answers_.isEmpty()) {
           answers_ = other.answers_;
-          bitField0_ = (bitField0_ & ~0x00000004);
+          answers_.makeImmutable();
+          bitField0_ |= 0x00000004;
         } else {
           ensureAnswersIsMutable();
           answers_.addAll(other.answers_);
@@ -675,12 +669,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<com.google.protobuf.ByteString> answers_ = java.util.Collections.emptyList();
+    private com.google.protobuf.Internal.ProtobufList<com.google.protobuf.ByteString> answers_ = emptyList(com.google.protobuf.ByteString.class);
     private void ensureAnswersIsMutable() {
-      if (!((bitField0_ & 0x00000004) != 0)) {
-        answers_ = new java.util.ArrayList<com.google.protobuf.ByteString>(answers_);
-        bitField0_ |= 0x00000004;
+      if (!answers_.isModifiable()) {
+        answers_ = makeMutableCopy(answers_);
       }
+      bitField0_ |= 0x00000004;
     }
     /**
      * <pre>
@@ -692,8 +686,8 @@ private static final long serialVersionUID = 0L;
      */
     public java.util.List<com.google.protobuf.ByteString>
         getAnswersList() {
-      return ((bitField0_ & 0x00000004) != 0) ?
-               java.util.Collections.unmodifiableList(answers_) : answers_;
+      answers_.makeImmutable();
+      return answers_;
     }
     /**
      * <pre>
@@ -733,6 +727,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       ensureAnswersIsMutable();
       answers_.set(index, value);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -749,6 +744,7 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       ensureAnswersIsMutable();
       answers_.add(value);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -766,6 +762,7 @@ private static final long serialVersionUID = 0L;
       ensureAnswersIsMutable();
       com.google.protobuf.AbstractMessageLite.Builder.addAll(
           values, answers_);
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
@@ -778,7 +775,7 @@ private static final long serialVersionUID = 0L;
      * @return This builder for chaining.
      */
     public Builder clearAnswers() {
-      answers_ = java.util.Collections.emptyList();
+      answers_ = emptyList(com.google.protobuf.ByteString.class);
       bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;

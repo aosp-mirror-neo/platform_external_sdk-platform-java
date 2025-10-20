@@ -1,5 +1,179 @@
 # Changelog
 
+## [2.27.0](https://github.com/googleapis/sdk-platform-java/compare/v2.26.1...v2.27.0) (2023-10-06)
+
+
+### Features
+
+* [common-protos] public google.api.FieldInfo type and extension ([#2037](https://github.com/googleapis/sdk-platform-java/issues/2037)) ([f2b8280](https://github.com/googleapis/sdk-platform-java/commit/f2b828005e6b21a2af0e646bb8cc6d0f8c39d4e4))
+* Generate proto-only library ([#2046](https://github.com/googleapis/sdk-platform-java/issues/2046)) ([f9ac8fb](https://github.com/googleapis/sdk-platform-java/commit/f9ac8fb0020372be4b62d5dffe7e1b73a1ac493f))
+* More logging for ChannelPool shutdown ([#2070](https://github.com/googleapis/sdk-platform-java/issues/2070)) ([b8365c2](https://github.com/googleapis/sdk-platform-java/commit/b8365c2a0c56db1ee286c582cd9ebe31a3d614e8))
+
+
+### Dependencies
+
+* Bumping java-shared-config to 1.5.8 ([#2072](https://github.com/googleapis/sdk-platform-java/issues/2072)) ([fa5e937](https://github.com/googleapis/sdk-platform-java/commit/fa5e937e98ad19b997f8c0e11cd03e61f707f3fe))
+
+## [2.26.1](https://github.com/googleapis/sdk-platform-java/compare/v2.26.0...v2.26.1) (2023-09-25)
+
+
+### Bug Fixes
+
+* Add Geo common protos to Bazel test dependencies. ([#2033](https://github.com/googleapis/sdk-platform-java/issues/2033)) ([625ecc5](https://github.com/googleapis/sdk-platform-java/commit/625ecc503a6b193716820681aafe0f2daf16d4c4))
+
+## [2.26.0](https://github.com/googleapis/sdk-platform-java/compare/v2.25.0...v2.26.0) (2023-09-21)
+
+
+### Features
+
+* Filter out `*gapic.legacy.yaml` when parsing `java_gapic_opts` ([#2015](https://github.com/googleapis/sdk-platform-java/issues/2015)) ([1ad5ec0](https://github.com/googleapis/sdk-platform-java/commit/1ad5ec0c2d99e41f4fddf9ed131c6dc9bffe17b4))
+* Generate showcase without post-processing ([#1935](https://github.com/googleapis/sdk-platform-java/issues/1935)) ([7218d80](https://github.com/googleapis/sdk-platform-java/commit/7218d8035946c350d7857fede93d32df3b2b8a86))
+* Hermetic build OS detection ([#1988](https://github.com/googleapis/sdk-platform-java/issues/1988)) ([4fc844e](https://github.com/googleapis/sdk-platform-java/commit/4fc844ee0ffdaae26ef3d32c18bbe7604da5c16f))
+* Hermetic build scripts to use a single output/generation folder ([#1987](https://github.com/googleapis/sdk-platform-java/issues/1987)) ([f5efb0e](https://github.com/googleapis/sdk-platform-java/commit/f5efb0edb097980db95832469188c754ec3f1779))
+* Search gapic additional protos in `BUILD.bazel` ([#2004](https://github.com/googleapis/sdk-platform-java/issues/2004)) ([ed16ac7](https://github.com/googleapis/sdk-platform-java/commit/ed16ac74ab8430ee0def437147298d7d88da6b0c))
+
+
+### Bug Fixes
+
+* **hermetic-build:** Obtain gapic-generator-java locally on release branch ([#2023](https://github.com/googleapis/sdk-platform-java/issues/2023)) ([f3088d5](https://github.com/googleapis/sdk-platform-java/commit/f3088d55478ab049110d8c2e67ff1dd056a5e71d))
+* Showcase update goal fix ([#2002](https://github.com/googleapis/sdk-platform-java/issues/2002)) ([47811f7](https://github.com/googleapis/sdk-platform-java/commit/47811f79848d6efd9dda8b3e8e4286dc3045423f))
+* Skip generating `grpc-*` directory if transport is `rest` ([#1979](https://github.com/googleapis/sdk-platform-java/issues/1979)) ([9c0316b](https://github.com/googleapis/sdk-platform-java/commit/9c0316bfed890ed7d8e40340a3510d2058dc5d71))
+
+
+### Documentation
+
+* Add repo-metadata.json files for modules we publish Cloud RAD d… ([#2003](https://github.com/googleapis/sdk-platform-java/issues/2003)) ([2212ba3](https://github.com/googleapis/sdk-platform-java/commit/2212ba300c215b00cf852fd3d8615f3d3c3458e1))
+
+
+### Dependencies
+
+* Update protobuf dependencies to v3.24.3 ([#2020](https://github.com/googleapis/sdk-platform-java/issues/2020)) ([2b45049](https://github.com/googleapis/sdk-platform-java/commit/2b45049fd6fbd38acded8ae900ef4b530a441bdf))
+
+## [2.25.0](https://github.com/googleapis/sdk-platform-java/compare/v2.24.0...v2.25.0) (2023-09-08)
+
+
+### Features
+
+* [common-protos,common-protos] add new FieldBehavior value IDENTIFIER ([#1937](https://github.com/googleapis/sdk-platform-java/issues/1937)) ([24ae2a3](https://github.com/googleapis/sdk-platform-java/commit/24ae2a3e0237fb2821ea07ccdd874c92ead598a2))
+* Add `generate_library.sh` without post processing ([#1916](https://github.com/googleapis/sdk-platform-java/issues/1916)) ([ffc058a](https://github.com/googleapis/sdk-platform-java/commit/ffc058a08c523b3811b021ec1bc30201452a36c9))
+* Adding vendor and vendor information in header ([#1963](https://github.com/googleapis/sdk-platform-java/issues/1963)) ([ed44aa7](https://github.com/googleapis/sdk-platform-java/commit/ed44aa785f8e21ad07aed984220db6e30e07a6c6))
+* Introduce @ObsoleteApi ([#1887](https://github.com/googleapis/sdk-platform-java/issues/1887)) ([5df1aa3](https://github.com/googleapis/sdk-platform-java/commit/5df1aa3733852aaeed068080f6b48047e89dc799))
+
+
+### Bug Fixes
+
+* Remove -H:-RunReachabilityHandlersConcurrently ([#1892](https://github.com/googleapis/sdk-platform-java/issues/1892)) ([9cc52e1](https://github.com/googleapis/sdk-platform-java/commit/9cc52e1e788e4196c9e83ad5d8a9487042ae707e))
+* Use && in equals check to avoid possible NPE ([#1927](https://github.com/googleapis/sdk-platform-java/issues/1927)) ([815567c](https://github.com/googleapis/sdk-platform-java/commit/815567ca4085702ecee8fc95603574cd52d6c57d))
+
+
+### Documentation
+
+* [iam] Minor formatting ([#1902](https://github.com/googleapis/sdk-platform-java/issues/1902)) ([5ec1142](https://github.com/googleapis/sdk-platform-java/commit/5ec1142458a46ae1c561f608b2ef7ac18ab0bafd))
+
+## [2.24.0](https://github.com/googleapis/sdk-platform-java/compare/v2.23.1...v2.24.0) (2023-08-01)
+
+
+### Features
+
+* [common-protos] Add a proto message to describe the `resource_type` and `resource_permission` for an API method ([#1878](https://github.com/googleapis/sdk-platform-java/issues/1878)) ([3e27ca9](https://github.com/googleapis/sdk-platform-java/commit/3e27ca9763e9639fb00b99bdef9cf95aacd33897))
+
+## [2.23.1](https://github.com/googleapis/sdk-platform-java/compare/v2.23.0...v2.23.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* Resource name class deduplication ([#1854](https://github.com/googleapis/sdk-platform-java/issues/1854)) ([08eca7d](https://github.com/googleapis/sdk-platform-java/commit/08eca7de7e80c6f242a23a9d76659e0a413c896f))
+* Use bindings for resolving multi pattern resources ([#1818](https://github.com/googleapis/sdk-platform-java/issues/1818)) ([1352fab](https://github.com/googleapis/sdk-platform-java/commit/1352fab654052e670df6d5c8718fcc6e06ef086c))
+
+
+### Dependencies
+
+* Auto-value version 1.10.2 ([#1859](https://github.com/googleapis/sdk-platform-java/issues/1859)) ([54843c9](https://github.com/googleapis/sdk-platform-java/commit/54843c95e0f0e2d004b14e82650c01026bf2ad70))
+* Bump grpc version to 1.56.1 ([1fcdd89](https://github.com/googleapis/sdk-platform-java/commit/1fcdd893240a7e5da293c6a26df193131577bbdd))
+* Bump jackson version to 2.15.2 ([bde81d8](https://github.com/googleapis/sdk-platform-java/commit/bde81d8c6f15130f51ea4e2d9805de3c0a21ae39))
+
+## [2.23.0](https://github.com/googleapis/sdk-platform-java/compare/v2.22.0...v2.23.0) (2023-07-07)
+
+
+### Features
+
+* Support GDC-H Credentials  ([#1642](https://github.com/googleapis/sdk-platform-java/issues/1642)) ([26da0d3](https://github.com/googleapis/sdk-platform-java/commit/26da0d3fb882e4f11c1cc43a81d34eb500c2c0cf))
+
+
+### Bug Fixes
+
+* [gapic-generator-java] handle response and metadata type ambiguity in LRO parsing ([#1726](https://github.com/googleapis/sdk-platform-java/issues/1726)) ([1ace494](https://github.com/googleapis/sdk-platform-java/commit/1ace49499175f2509062edb2fa5098e6cf8035d6))
+* Abstract batch resource and add method to determine if batch should be flushed ([#1790](https://github.com/googleapis/sdk-platform-java/issues/1790)) ([4c74107](https://github.com/googleapis/sdk-platform-java/commit/4c741077d614093d08665e9ddd83fb0e332b7881))
+
+
+### Dependencies
+
+* Bump grpc-java version to 1.55.3 ([1ff8cc0](https://github.com/googleapis/sdk-platform-java/commit/1ff8cc017bfb567933713ceeb06502f5eec9eaa6))
+* Bump guava version to 32.1.1-jre ([016e84d](https://github.com/googleapis/sdk-platform-java/commit/016e84d17febd68e2aa028cba40e2781a383f7ff))
+* Bump j2obc-annotations version to 2.8 ([4f45313](https://github.com/googleapis/sdk-platform-java/commit/4f4531373f313a7d68c2b9bfd5b0f1f71b21128f))
+* Update google-auth-java-library to 1.19.0 ([#1815](https://github.com/googleapis/sdk-platform-java/issues/1815)) ([41007a9](https://github.com/googleapis/sdk-platform-java/commit/41007a9efbd4cf08a5f933c23e01fce6cf2efac7))
+
+## [2.22.0](https://github.com/googleapis/sdk-platform-java/compare/v2.21.0...v2.22.0) (2023-06-22)
+
+
+### Features
+
+* Dynamically determine protobuf version in build.gradle ([#1753](https://github.com/googleapis/sdk-platform-java/issues/1753)) ([6de5110](https://github.com/googleapis/sdk-platform-java/commit/6de51100965b8b6a1c252ec06b10993486de7d44))
+* GA Gax HttpJson ([#1264](https://github.com/googleapis/sdk-platform-java/issues/1264)) ([9f15fea](https://github.com/googleapis/sdk-platform-java/commit/9f15fea139e9b49ae32e6a4923085f9aca9c3115))
+
+
+### Bug Fixes
+
+* Update grpc to 1.55.1 in dependencies.properties ([#1794](https://github.com/googleapis/sdk-platform-java/issues/1794)) ([4df4450](https://github.com/googleapis/sdk-platform-java/commit/4df445067484454455512c8f7de0055c0ae21434))
+
+## [2.21.0](https://github.com/googleapis/sdk-platform-java/compare/v2.20.1...v2.21.0) (2023-06-06)
+
+
+### Features
+
+* Dynamic Routing Headers for HttpJson ([#1667](https://github.com/googleapis/sdk-platform-java/issues/1667)) ([003b993](https://github.com/googleapis/sdk-platform-java/commit/003b993f7ad7cae8ae8c101e0ff147e517dcd83e))
+* Implement awaitTermination() for MangedHttpJsonChannel ([#1677](https://github.com/googleapis/sdk-platform-java/issues/1677)) ([dea8426](https://github.com/googleapis/sdk-platform-java/commit/dea8426a85b53d08d3c8d317a1af4312889b1a3d))
+
+
+### Bug Fixes
+
+* [gapic-generator-java] align writer behavior for nested types ([#1709](https://github.com/googleapis/sdk-platform-java/issues/1709)) ([a21ffe8](https://github.com/googleapis/sdk-platform-java/commit/a21ffe88f880c0b3c6b5b512cd4d0741d9620dd3))
+* [gapic-generator-java] update year to 2023 in generated license headers ([#1720](https://github.com/googleapis/sdk-platform-java/issues/1720)) ([ef4a7ff](https://github.com/googleapis/sdk-platform-java/commit/ef4a7ff91b259f0b650cc06bd664eadca7bd17c9))
+* Update the return type of setWaitTimeout for convience ([#1751](https://github.com/googleapis/sdk-platform-java/issues/1751)) ([f1927a5](https://github.com/googleapis/sdk-platform-java/commit/f1927a53306ee28186074e6cb03a933a0cdffc1f))
+
+
+### Dependencies
+
+* Update dependency com.google.auth:google-auth-library-credentials and google-auth-library-oauth2-http to v1.17.0 ([#1756](https://github.com/googleapis/sdk-platform-java/issues/1756)) ([f583258](https://github.com/googleapis/sdk-platform-java/commit/f58325893b6ab306adbe4047b6dfc438de133ac7))
+* Update protobuf dependencies to v3.23.2 ([#1755](https://github.com/googleapis/sdk-platform-java/issues/1755)) ([55ecbc3](https://github.com/googleapis/sdk-platform-java/commit/55ecbc35cbd735b8f4aab48e02e080d79828d70c))
+
+## [2.20.1](https://github.com/googleapis/sdk-platform-java/compare/v2.20.0...v2.20.1) (2023-05-25)
+
+
+### Bug Fixes
+
+* Allow quota project to be used in combination with null credentials ([#1688](https://github.com/googleapis/sdk-platform-java/issues/1688)) ([cb07bd4](https://github.com/googleapis/sdk-platform-java/commit/cb07bd405b448fbef51367d1b03d4fe9eab54504))
+
+## [2.20.0](https://github.com/googleapis/sdk-platform-java/compare/v2.19.0...v2.20.0) (2023-05-24)
+
+
+### Features
+
+* Create additional tag on release for google-cloud-shared-dependencies ([#1692](https://github.com/googleapis/sdk-platform-java/issues/1692)) ([c0ea245](https://github.com/googleapis/sdk-platform-java/commit/c0ea24588de744a46600fcf6f0f3c6414549e12d))
+* Make stream wait timeout a first class citizen ([#1473](https://github.com/googleapis/sdk-platform-java/issues/1473)) ([bc8a4ad](https://github.com/googleapis/sdk-platform-java/commit/bc8a4ad864f4d6f2b9d98e5fe296320fea19e74b))
+
+
+### Bug Fixes
+
+* Fix release tag workflow to fetch all tags first ([#1700](https://github.com/googleapis/sdk-platform-java/issues/1700)) ([99b0c96](https://github.com/googleapis/sdk-platform-java/commit/99b0c967fbed22967cd072825de403ed9bac0209))
+* Update tag workflow ([#1699](https://github.com/googleapis/sdk-platform-java/issues/1699)) ([a988fe7](https://github.com/googleapis/sdk-platform-java/commit/a988fe7dcfc8568c9256c22b5df907b16e5eea5a))
+
+
+### Dependencies
+
+* Update protobuf dependencies to v3.23.1 and gprc to 1.55.1 ([#1698](https://github.com/googleapis/sdk-platform-java/issues/1698)) ([1f56175](https://github.com/googleapis/sdk-platform-java/commit/1f561754ed9e797f639cbdfabe070b86b645281b))
+* Update showcase version to 0.28.1 ([#1673](https://github.com/googleapis/sdk-platform-java/issues/1673)) ([9a120e9](https://github.com/googleapis/sdk-platform-java/commit/9a120e98524018fa54ae5dcbe2fb0f524c2a0f1b))
+
 ## [2.19.0](https://github.com/googleapis/gapic-generator-java/compare/v2.18.0...v2.19.0) (2023-05-09)
 
 

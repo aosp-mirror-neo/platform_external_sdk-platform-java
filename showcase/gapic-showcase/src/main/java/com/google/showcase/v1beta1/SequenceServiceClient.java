@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,18 @@ import com.google.api.gax.paging.AbstractFixedSizeCollection;
 import com.google.api.gax.paging.AbstractPage;
 import com.google.api.gax.paging.AbstractPagedListResponse;
 import com.google.api.gax.rpc.PageContext;
+import com.google.api.gax.rpc.ServerStreamingCallable;
 import com.google.api.gax.rpc.UnaryCallable;
 import com.google.cloud.location.GetLocationRequest;
 import com.google.cloud.location.ListLocationsRequest;
 import com.google.cloud.location.ListLocationsResponse;
 import com.google.cloud.location.Location;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.iam.v1.GetIamPolicyRequest;
+import com.google.iam.v1.Policy;
+import com.google.iam.v1.SetIamPolicyRequest;
+import com.google.iam.v1.TestIamPermissionsRequest;
+import com.google.iam.v1.TestIamPermissionsResponse;
 import com.google.protobuf.Empty;
 import com.google.showcase.v1beta1.stub.SequenceServiceStub;
 import com.google.showcase.v1beta1.stub.SequenceServiceStubSettings;
@@ -261,6 +267,90 @@ public class SequenceServiceClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
+   * Creates a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   StreamingSequence streamingSequence = StreamingSequence.newBuilder().build();
+   *   StreamingSequence response = sequenceServiceClient.createStreamingSequence(streamingSequence);
+   * }
+   * }</pre>
+   *
+   * @param streamingSequence
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StreamingSequence createStreamingSequence(StreamingSequence streamingSequence) {
+    CreateStreamingSequenceRequest request =
+        CreateStreamingSequenceRequest.newBuilder().setStreamingSequence(streamingSequence).build();
+    return createStreamingSequence(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Creates a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   CreateStreamingSequenceRequest request =
+   *       CreateStreamingSequenceRequest.newBuilder()
+   *           .setStreamingSequence(StreamingSequence.newBuilder().build())
+   *           .build();
+   *   StreamingSequence response = sequenceServiceClient.createStreamingSequence(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StreamingSequence createStreamingSequence(CreateStreamingSequenceRequest request) {
+    return createStreamingSequenceCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Creates a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   CreateStreamingSequenceRequest request =
+   *       CreateStreamingSequenceRequest.newBuilder()
+   *           .setStreamingSequence(StreamingSequence.newBuilder().build())
+   *           .build();
+   *   ApiFuture<StreamingSequence> future =
+   *       sequenceServiceClient.createStreamingSequenceCallable().futureCall(request);
+   *   // Do something.
+   *   StreamingSequence response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<CreateStreamingSequenceRequest, StreamingSequence>
+      createStreamingSequenceCallable() {
+    return stub.createStreamingSequenceCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
    * Retrieves a sequence.
    *
    * <p>Sample code:
@@ -372,6 +462,121 @@ public class SequenceServiceClient implements BackgroundResource {
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
   /**
+   * Retrieves a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   StreamingSequenceReportName name = StreamingSequenceReportName.of("[STREAMING_SEQUENCE]");
+   *   StreamingSequenceReport response = sequenceServiceClient.getStreamingSequenceReport(name);
+   * }
+   * }</pre>
+   *
+   * @param name
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StreamingSequenceReport getStreamingSequenceReport(
+      StreamingSequenceReportName name) {
+    GetStreamingSequenceReportRequest request =
+        GetStreamingSequenceReportRequest.newBuilder()
+            .setName(name == null ? null : name.toString())
+            .build();
+    return getStreamingSequenceReport(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Retrieves a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   String name = StreamingSequenceReportName.of("[STREAMING_SEQUENCE]").toString();
+   *   StreamingSequenceReport response = sequenceServiceClient.getStreamingSequenceReport(name);
+   * }
+   * }</pre>
+   *
+   * @param name
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StreamingSequenceReport getStreamingSequenceReport(String name) {
+    GetStreamingSequenceReportRequest request =
+        GetStreamingSequenceReportRequest.newBuilder().setName(name).build();
+    return getStreamingSequenceReport(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Retrieves a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   GetStreamingSequenceReportRequest request =
+   *       GetStreamingSequenceReportRequest.newBuilder()
+   *           .setName(StreamingSequenceReportName.of("[STREAMING_SEQUENCE]").toString())
+   *           .build();
+   *   StreamingSequenceReport response = sequenceServiceClient.getStreamingSequenceReport(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final StreamingSequenceReport getStreamingSequenceReport(
+      GetStreamingSequenceReportRequest request) {
+    return getStreamingSequenceReportCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Retrieves a sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   GetStreamingSequenceReportRequest request =
+   *       GetStreamingSequenceReportRequest.newBuilder()
+   *           .setName(StreamingSequenceReportName.of("[STREAMING_SEQUENCE]").toString())
+   *           .build();
+   *   ApiFuture<StreamingSequenceReport> future =
+   *       sequenceServiceClient.getStreamingSequenceReportCallable().futureCall(request);
+   *   // Do something.
+   *   StreamingSequenceReport response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<GetStreamingSequenceReportRequest, StreamingSequenceReport>
+      getStreamingSequenceReportCallable() {
+    return stub.getStreamingSequenceReportCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
    * Attempts a sequence.
    *
    * <p>Sample code:
@@ -476,6 +681,37 @@ public class SequenceServiceClient implements BackgroundResource {
    */
   public final UnaryCallable<AttemptSequenceRequest, Empty> attemptSequenceCallable() {
     return stub.attemptSequenceCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Attempts a streaming sequence.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   AttemptStreamingSequenceRequest request =
+   *       AttemptStreamingSequenceRequest.newBuilder()
+   *           .setName(StreamingSequenceName.of("[STREAMING_SEQUENCE]").toString())
+   *           .build();
+   *   ServerStream<AttemptStreamingSequenceResponse> stream =
+   *       sequenceServiceClient.attemptStreamingSequenceCallable().call(request);
+   *   for (AttemptStreamingSequenceResponse response : stream) {
+   *     // Do something when a response is received.
+   *   }
+   * }
+   * }</pre>
+   */
+  public final ServerStreamingCallable<
+          AttemptStreamingSequenceRequest, AttemptStreamingSequenceResponse>
+      attemptStreamingSequenceCallable() {
+    return stub.attemptStreamingSequenceCallable();
   }
 
   // AUTO-GENERATED DOCUMENTATION AND METHOD.
@@ -632,6 +868,197 @@ public class SequenceServiceClient implements BackgroundResource {
    */
   public final UnaryCallable<GetLocationRequest, Location> getLocationCallable() {
     return stub.getLocationCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sets the access control policy on the specified resource. Replaces any existing policy.
+   *
+   * <p>Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   SetIamPolicyRequest request =
+   *       SetIamPolicyRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .setPolicy(Policy.newBuilder().build())
+   *           .setUpdateMask(FieldMask.newBuilder().build())
+   *           .build();
+   *   Policy response = sequenceServiceClient.setIamPolicy(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final Policy setIamPolicy(SetIamPolicyRequest request) {
+    return setIamPolicyCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sets the access control policy on the specified resource. Replaces any existing policy.
+   *
+   * <p>Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   SetIamPolicyRequest request =
+   *       SetIamPolicyRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .setPolicy(Policy.newBuilder().build())
+   *           .setUpdateMask(FieldMask.newBuilder().build())
+   *           .build();
+   *   ApiFuture<Policy> future = sequenceServiceClient.setIamPolicyCallable().futureCall(request);
+   *   // Do something.
+   *   Policy response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<SetIamPolicyRequest, Policy> setIamPolicyCallable() {
+    return stub.setIamPolicyCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Gets the access control policy for a resource. Returns an empty policy if the resource exists
+   * and does not have a policy set.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   GetIamPolicyRequest request =
+   *       GetIamPolicyRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .setOptions(GetPolicyOptions.newBuilder().build())
+   *           .build();
+   *   Policy response = sequenceServiceClient.getIamPolicy(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final Policy getIamPolicy(GetIamPolicyRequest request) {
+    return getIamPolicyCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Gets the access control policy for a resource. Returns an empty policy if the resource exists
+   * and does not have a policy set.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   GetIamPolicyRequest request =
+   *       GetIamPolicyRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .setOptions(GetPolicyOptions.newBuilder().build())
+   *           .build();
+   *   ApiFuture<Policy> future = sequenceServiceClient.getIamPolicyCallable().futureCall(request);
+   *   // Do something.
+   *   Policy response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<GetIamPolicyRequest, Policy> getIamPolicyCallable() {
+    return stub.getIamPolicyCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Returns permissions that a caller has on the specified resource. If the resource does not
+   * exist, this will return an empty set of permissions, not a `NOT_FOUND` error.
+   *
+   * <p>Note: This operation is designed to be used for building permission-aware UIs and
+   * command-line tools, not for authorization checking. This operation may "fail open" without
+   * warning.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   TestIamPermissionsRequest request =
+   *       TestIamPermissionsRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .addAllPermissions(new ArrayList<String>())
+   *           .build();
+   *   TestIamPermissionsResponse response = sequenceServiceClient.testIamPermissions(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final TestIamPermissionsResponse testIamPermissions(TestIamPermissionsRequest request) {
+    return testIamPermissionsCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Returns permissions that a caller has on the specified resource. If the resource does not
+   * exist, this will return an empty set of permissions, not a `NOT_FOUND` error.
+   *
+   * <p>Note: This operation is designed to be used for building permission-aware UIs and
+   * command-line tools, not for authorization checking. This operation may "fail open" without
+   * warning.
+   *
+   * <p>Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (SequenceServiceClient sequenceServiceClient = SequenceServiceClient.create()) {
+   *   TestIamPermissionsRequest request =
+   *       TestIamPermissionsRequest.newBuilder()
+   *           .setResource(BlurbName.ofRoomBlurbName("[ROOM]", "[BLURB]").toString())
+   *           .addAllPermissions(new ArrayList<String>())
+   *           .build();
+   *   ApiFuture<TestIamPermissionsResponse> future =
+   *       sequenceServiceClient.testIamPermissionsCallable().futureCall(request);
+   *   // Do something.
+   *   TestIamPermissionsResponse response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsCallable() {
+    return stub.testIamPermissionsCallable();
   }
 
   @Override

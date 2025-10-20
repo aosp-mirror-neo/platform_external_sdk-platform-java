@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,13 +38,20 @@ import com.google.api.gax.rpc.BidiStreamingCallable;
 import com.google.api.gax.rpc.ClientContext;
 import com.google.api.gax.rpc.ClientStreamingCallable;
 import com.google.api.gax.rpc.OperationCallable;
+import com.google.api.gax.rpc.RequestParamsBuilder;
 import com.google.api.gax.rpc.ServerStreamingCallable;
 import com.google.api.gax.rpc.UnaryCallable;
+import com.google.api.pathtemplate.PathTemplate;
 import com.google.cloud.location.GetLocationRequest;
 import com.google.cloud.location.ListLocationsRequest;
 import com.google.cloud.location.ListLocationsResponse;
 import com.google.cloud.location.Location;
 import com.google.common.collect.ImmutableMap;
+import com.google.iam.v1.GetIamPolicyRequest;
+import com.google.iam.v1.Policy;
+import com.google.iam.v1.SetIamPolicyRequest;
+import com.google.iam.v1.TestIamPermissionsRequest;
+import com.google.iam.v1.TestIamPermissionsResponse;
 import com.google.longrunning.Operation;
 import com.google.protobuf.TypeRegistry;
 import com.google.showcase.v1beta1.BlockRequest;
@@ -386,6 +393,123 @@ public class HttpJsonEchoStub extends EchoStub {
                       .build())
               .build();
 
+  private static final ApiMethodDescriptor<SetIamPolicyRequest, Policy>
+      setIamPolicyMethodDescriptor =
+          ApiMethodDescriptor.<SetIamPolicyRequest, Policy>newBuilder()
+              .setFullMethodName("google.iam.v1.IAMPolicy/SetIamPolicy")
+              .setHttpMethod("POST")
+              .setType(ApiMethodDescriptor.MethodType.UNARY)
+              .setRequestFormatter(
+                  ProtoMessageRequestFormatter.<SetIamPolicyRequest>newBuilder()
+                      .setPath(
+                          "/v1beta1/{resource=users/*}:setIamPolicy",
+                          request -> {
+                            Map<String, String> fields = new HashMap<>();
+                            ProtoRestSerializer<SetIamPolicyRequest> serializer =
+                                ProtoRestSerializer.create();
+                            serializer.putPathParam(fields, "resource", request.getResource());
+                            return fields;
+                          })
+                      .setAdditionalPaths(
+                          "/v1beta1/{resource=rooms/*}:setIamPolicy",
+                          "/v1beta1/{resource=rooms/*/blurbs/*}:setIamPolicy",
+                          "/v1beta1/{resource=sequences/*}:setIamPolicy")
+                      .setQueryParamsExtractor(
+                          request -> {
+                            Map<String, List<String>> fields = new HashMap<>();
+                            ProtoRestSerializer<SetIamPolicyRequest> serializer =
+                                ProtoRestSerializer.create();
+                            return fields;
+                          })
+                      .setRequestBodyExtractor(
+                          request ->
+                              ProtoRestSerializer.create()
+                                  .toBody("*", request.toBuilder().clearResource().build(), false))
+                      .build())
+              .setResponseParser(
+                  ProtoMessageResponseParser.<Policy>newBuilder()
+                      .setDefaultInstance(Policy.getDefaultInstance())
+                      .setDefaultTypeRegistry(typeRegistry)
+                      .build())
+              .build();
+
+  private static final ApiMethodDescriptor<GetIamPolicyRequest, Policy>
+      getIamPolicyMethodDescriptor =
+          ApiMethodDescriptor.<GetIamPolicyRequest, Policy>newBuilder()
+              .setFullMethodName("google.iam.v1.IAMPolicy/GetIamPolicy")
+              .setHttpMethod("GET")
+              .setType(ApiMethodDescriptor.MethodType.UNARY)
+              .setRequestFormatter(
+                  ProtoMessageRequestFormatter.<GetIamPolicyRequest>newBuilder()
+                      .setPath(
+                          "/v1beta1/{resource=users/*}:getIamPolicy",
+                          request -> {
+                            Map<String, String> fields = new HashMap<>();
+                            ProtoRestSerializer<GetIamPolicyRequest> serializer =
+                                ProtoRestSerializer.create();
+                            serializer.putPathParam(fields, "resource", request.getResource());
+                            return fields;
+                          })
+                      .setAdditionalPaths(
+                          "/v1beta1/{resource=rooms/*}:getIamPolicy",
+                          "/v1beta1/{resource=rooms/*/blurbs/*}:getIamPolicy",
+                          "/v1beta1/{resource=sequences/*}:getIamPolicy")
+                      .setQueryParamsExtractor(
+                          request -> {
+                            Map<String, List<String>> fields = new HashMap<>();
+                            ProtoRestSerializer<GetIamPolicyRequest> serializer =
+                                ProtoRestSerializer.create();
+                            return fields;
+                          })
+                      .setRequestBodyExtractor(request -> null)
+                      .build())
+              .setResponseParser(
+                  ProtoMessageResponseParser.<Policy>newBuilder()
+                      .setDefaultInstance(Policy.getDefaultInstance())
+                      .setDefaultTypeRegistry(typeRegistry)
+                      .build())
+              .build();
+
+  private static final ApiMethodDescriptor<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsMethodDescriptor =
+          ApiMethodDescriptor.<TestIamPermissionsRequest, TestIamPermissionsResponse>newBuilder()
+              .setFullMethodName("google.iam.v1.IAMPolicy/TestIamPermissions")
+              .setHttpMethod("POST")
+              .setType(ApiMethodDescriptor.MethodType.UNARY)
+              .setRequestFormatter(
+                  ProtoMessageRequestFormatter.<TestIamPermissionsRequest>newBuilder()
+                      .setPath(
+                          "/v1beta1/{resource=users/*}:testIamPermissions",
+                          request -> {
+                            Map<String, String> fields = new HashMap<>();
+                            ProtoRestSerializer<TestIamPermissionsRequest> serializer =
+                                ProtoRestSerializer.create();
+                            serializer.putPathParam(fields, "resource", request.getResource());
+                            return fields;
+                          })
+                      .setAdditionalPaths(
+                          "/v1beta1/{resource=rooms/*}:testIamPermissions",
+                          "/v1beta1/{resource=rooms/*/blurbs/*}:testIamPermissions",
+                          "/v1beta1/{resource=sequences/*}:testIamPermissions")
+                      .setQueryParamsExtractor(
+                          request -> {
+                            Map<String, List<String>> fields = new HashMap<>();
+                            ProtoRestSerializer<TestIamPermissionsRequest> serializer =
+                                ProtoRestSerializer.create();
+                            return fields;
+                          })
+                      .setRequestBodyExtractor(
+                          request ->
+                              ProtoRestSerializer.create()
+                                  .toBody("*", request.toBuilder().clearResource().build(), false))
+                      .build())
+              .setResponseParser(
+                  ProtoMessageResponseParser.<TestIamPermissionsResponse>newBuilder()
+                      .setDefaultInstance(TestIamPermissionsResponse.getDefaultInstance())
+                      .setDefaultTypeRegistry(typeRegistry)
+                      .build())
+              .build();
+
   private final UnaryCallable<EchoRequest, EchoResponse> echoCallable;
   private final ServerStreamingCallable<ExpandRequest, EchoResponse> expandCallable;
   private final UnaryCallable<PagedExpandRequest, PagedExpandResponse> pagedExpandCallable;
@@ -404,10 +528,28 @@ public class HttpJsonEchoStub extends EchoStub {
   private final UnaryCallable<ListLocationsRequest, ListLocationsPagedResponse>
       listLocationsPagedCallable;
   private final UnaryCallable<GetLocationRequest, Location> getLocationCallable;
+  private final UnaryCallable<SetIamPolicyRequest, Policy> setIamPolicyCallable;
+  private final UnaryCallable<GetIamPolicyRequest, Policy> getIamPolicyCallable;
+  private final UnaryCallable<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsCallable;
 
   private final BackgroundResource backgroundResources;
   private final HttpJsonOperationsStub httpJsonOperationsStub;
   private final HttpJsonStubCallableFactory callableFactory;
+
+  private static final PathTemplate ECHO_0_PATH_TEMPLATE = PathTemplate.create("{header=**}");
+  private static final PathTemplate ECHO_1_PATH_TEMPLATE = PathTemplate.create("{routing_id=**}");
+  private static final PathTemplate ECHO_2_PATH_TEMPLATE =
+      PathTemplate.create("{table_name=regions/*/zones/*/**}");
+  private static final PathTemplate ECHO_3_PATH_TEMPLATE =
+      PathTemplate.create("{super_id=projects/*}/**");
+  private static final PathTemplate ECHO_4_PATH_TEMPLATE =
+      PathTemplate.create("{table_name=projects/*/instances/*/**}");
+  private static final PathTemplate ECHO_5_PATH_TEMPLATE =
+      PathTemplate.create("projects/*/{instance_id=instances/*}/**");
+  private static final PathTemplate ECHO_6_PATH_TEMPLATE = PathTemplate.create("{baz=**}");
+  private static final PathTemplate ECHO_7_PATH_TEMPLATE =
+      PathTemplate.create("{qux=projects/*}/**");
 
   public static final HttpJsonEchoStub create(EchoStubSettings settings) throws IOException {
     return new HttpJsonEchoStub(settings, ClientContext.create(settings));
@@ -466,6 +608,19 @@ public class HttpJsonEchoStub extends EchoStub {
         HttpJsonCallSettings.<EchoRequest, EchoResponse>newBuilder()
             .setMethodDescriptor(echoMethodDescriptor)
             .setTypeRegistry(typeRegistry)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add(request.getHeader(), "header", ECHO_0_PATH_TEMPLATE);
+                  builder.add(request.getHeader(), "routing_id", ECHO_1_PATH_TEMPLATE);
+                  builder.add(request.getHeader(), "table_name", ECHO_2_PATH_TEMPLATE);
+                  builder.add(request.getHeader(), "super_id", ECHO_3_PATH_TEMPLATE);
+                  builder.add(request.getHeader(), "table_name", ECHO_4_PATH_TEMPLATE);
+                  builder.add(request.getHeader(), "instance_id", ECHO_5_PATH_TEMPLATE);
+                  builder.add(request.getOtherHeader(), "baz", ECHO_6_PATH_TEMPLATE);
+                  builder.add(request.getOtherHeader(), "qux", ECHO_7_PATH_TEMPLATE);
+                  return builder.build();
+                })
             .build();
     HttpJsonCallSettings<ExpandRequest, EchoResponse> expandTransportSettings =
         HttpJsonCallSettings.<ExpandRequest, EchoResponse>newBuilder()
@@ -504,12 +659,58 @@ public class HttpJsonEchoStub extends EchoStub {
             HttpJsonCallSettings.<ListLocationsRequest, ListLocationsResponse>newBuilder()
                 .setMethodDescriptor(listLocationsMethodDescriptor)
                 .setTypeRegistry(typeRegistry)
+                .setParamsExtractor(
+                    request -> {
+                      RequestParamsBuilder builder = RequestParamsBuilder.create();
+                      builder.add("name", String.valueOf(request.getName()));
+                      return builder.build();
+                    })
                 .build();
     HttpJsonCallSettings<GetLocationRequest, Location> getLocationTransportSettings =
         HttpJsonCallSettings.<GetLocationRequest, Location>newBuilder()
             .setMethodDescriptor(getLocationMethodDescriptor)
             .setTypeRegistry(typeRegistry)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("name", String.valueOf(request.getName()));
+                  return builder.build();
+                })
             .build();
+    HttpJsonCallSettings<SetIamPolicyRequest, Policy> setIamPolicyTransportSettings =
+        HttpJsonCallSettings.<SetIamPolicyRequest, Policy>newBuilder()
+            .setMethodDescriptor(setIamPolicyMethodDescriptor)
+            .setTypeRegistry(typeRegistry)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("resource", String.valueOf(request.getResource()));
+                  return builder.build();
+                })
+            .build();
+    HttpJsonCallSettings<GetIamPolicyRequest, Policy> getIamPolicyTransportSettings =
+        HttpJsonCallSettings.<GetIamPolicyRequest, Policy>newBuilder()
+            .setMethodDescriptor(getIamPolicyMethodDescriptor)
+            .setTypeRegistry(typeRegistry)
+            .setParamsExtractor(
+                request -> {
+                  RequestParamsBuilder builder = RequestParamsBuilder.create();
+                  builder.add("resource", String.valueOf(request.getResource()));
+                  return builder.build();
+                })
+            .build();
+    HttpJsonCallSettings<TestIamPermissionsRequest, TestIamPermissionsResponse>
+        testIamPermissionsTransportSettings =
+            HttpJsonCallSettings.<TestIamPermissionsRequest, TestIamPermissionsResponse>newBuilder()
+                .setMethodDescriptor(testIamPermissionsMethodDescriptor)
+                .setTypeRegistry(typeRegistry)
+                .setParamsExtractor(
+                    request -> {
+                      RequestParamsBuilder builder = RequestParamsBuilder.create();
+                      builder.add("resource", String.valueOf(request.getResource()));
+                      return builder.build();
+                    })
+                .build();
 
     this.echoCallable =
         callableFactory.createUnaryCallable(
@@ -559,6 +760,17 @@ public class HttpJsonEchoStub extends EchoStub {
     this.getLocationCallable =
         callableFactory.createUnaryCallable(
             getLocationTransportSettings, settings.getLocationSettings(), clientContext);
+    this.setIamPolicyCallable =
+        callableFactory.createUnaryCallable(
+            setIamPolicyTransportSettings, settings.setIamPolicySettings(), clientContext);
+    this.getIamPolicyCallable =
+        callableFactory.createUnaryCallable(
+            getIamPolicyTransportSettings, settings.getIamPolicySettings(), clientContext);
+    this.testIamPermissionsCallable =
+        callableFactory.createUnaryCallable(
+            testIamPermissionsTransportSettings,
+            settings.testIamPermissionsSettings(),
+            clientContext);
 
     this.backgroundResources =
         new BackgroundResourceAggregation(clientContext.getBackgroundResources());
@@ -576,6 +788,9 @@ public class HttpJsonEchoStub extends EchoStub {
     methodDescriptors.add(blockMethodDescriptor);
     methodDescriptors.add(listLocationsMethodDescriptor);
     methodDescriptors.add(getLocationMethodDescriptor);
+    methodDescriptors.add(setIamPolicyMethodDescriptor);
+    methodDescriptors.add(getIamPolicyMethodDescriptor);
+    methodDescriptors.add(testIamPermissionsMethodDescriptor);
     return methodDescriptors;
   }
 
@@ -649,6 +864,22 @@ public class HttpJsonEchoStub extends EchoStub {
   @Override
   public UnaryCallable<GetLocationRequest, Location> getLocationCallable() {
     return getLocationCallable;
+  }
+
+  @Override
+  public UnaryCallable<SetIamPolicyRequest, Policy> setIamPolicyCallable() {
+    return setIamPolicyCallable;
+  }
+
+  @Override
+  public UnaryCallable<GetIamPolicyRequest, Policy> getIamPolicyCallable() {
+    return getIamPolicyCallable;
+  }
+
+  @Override
+  public UnaryCallable<TestIamPermissionsRequest, TestIamPermissionsResponse>
+      testIamPermissionsCallable() {
+    return testIamPermissionsCallable;
   }
 
   @Override

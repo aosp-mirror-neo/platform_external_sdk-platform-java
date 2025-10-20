@@ -29,11 +29,6 @@ private static final long serialVersionUID = 0L;
     return new WaitMetadata();
   }
 
-  @java.lang.Override
-  public final com.google.protobuf.UnknownFieldSet
-  getUnknownFields() {
-    return this.unknownFields;
-  }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.google.showcase.v1beta1.EchoOuterClass.internal_static_google_showcase_v1beta1_WaitMetadata_descriptor;
@@ -47,6 +42,7 @@ private static final long serialVersionUID = 0L;
             com.google.showcase.v1beta1.WaitMetadata.class, com.google.showcase.v1beta1.WaitMetadata.Builder.class);
   }
 
+  private int bitField0_;
   public static final int END_TIME_FIELD_NUMBER = 1;
   private com.google.protobuf.Timestamp endTime_;
   /**
@@ -59,7 +55,7 @@ private static final long serialVersionUID = 0L;
    */
   @java.lang.Override
   public boolean hasEndTime() {
-    return endTime_ != null;
+    return ((bitField0_ & 0x00000001) != 0);
   }
   /**
    * <pre>
@@ -99,7 +95,7 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (endTime_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       output.writeMessage(1, getEndTime());
     }
     getUnknownFields().writeTo(output);
@@ -111,7 +107,7 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (endTime_ != null) {
+    if (((bitField0_ & 0x00000001) != 0)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getEndTime());
     }
@@ -199,11 +195,13 @@ private static final long serialVersionUID = 0L;
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
+
   public static com.google.showcase.v1beta1.WaitMetadata parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
+
   public static com.google.showcase.v1beta1.WaitMetadata parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -271,13 +269,19 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.google.showcase.v1beta1.WaitMetadata.newBuilder()
     private Builder() {
-
+      maybeForceBuilderInitialization();
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-
+      maybeForceBuilderInitialization();
+    }
+    private void maybeForceBuilderInitialization() {
+      if (com.google.protobuf.GeneratedMessageV3
+              .alwaysUseFieldBuilders) {
+        getEndTimeFieldBuilder();
+      }
     }
     @java.lang.Override
     public Builder clear() {
@@ -321,11 +325,14 @@ private static final long serialVersionUID = 0L;
 
     private void buildPartial0(com.google.showcase.v1beta1.WaitMetadata result) {
       int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) != 0)) {
         result.endTime_ = endTimeBuilder_ == null
             ? endTime_
             : endTimeBuilder_.build();
+        to_bitField0_ |= 0x00000001;
       }
+      result.bitField0_ |= to_bitField0_;
     }
 
     @java.lang.Override
@@ -511,8 +518,10 @@ private static final long serialVersionUID = 0L;
       } else {
         endTimeBuilder_.mergeFrom(value);
       }
-      bitField0_ |= 0x00000001;
-      onChanged();
+      if (endTime_ != null) {
+        bitField0_ |= 0x00000001;
+        onChanged();
+      }
       return this;
     }
     /**
