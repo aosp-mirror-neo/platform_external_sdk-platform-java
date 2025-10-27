@@ -19,6 +19,9 @@ java_library_host {
         "threetenbp",
     ],
     plugins: ["auto_value_plugin"],
+    errorprone: {
+        javacflags: ["-Xep:ImpossibleNullComparison:WARN"],
+    },
     target: {
         windows: {
             enabled: true,
