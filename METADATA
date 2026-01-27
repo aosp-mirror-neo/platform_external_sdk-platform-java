@@ -15,6 +15,7 @@ third_party {
   identifier {
     type: "Git"
     value: "https://github.com/googleapis/sdk-platform-java.git"
-    version: "v2.27.0"
+    version: "3d737eb1207d0dab9470b9dada71b0efe58da95d"
+    closest_version: "v2.27.0"
   }
 }
